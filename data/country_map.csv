@@ -1,0 +1,87 @@
+# Canonical country mapping table for the Donor Readiness Index
+# Key: iso3 (ISO 3166-1 alpha-3)
+# income_group: HIC (High Income), UMC (Upper-Middle Income), LMC (Lower-Middle Income)
+# wdi_name, imf_name, ida_name: source-specific name variants (blank = same as country_name)
+iso3,country_name,income_group,wdi_name,imf_name,ida_name,is_current_donor
+AUS,Australia,HIC,Australia,Australia,Australia,1
+AUT,Austria,HIC,Austria,Austria,Austria,1
+BEL,Belgium,HIC,Belgium,Belgium,Belgium,1
+CAN,Canada,HIC,Canada,Canada,Canada,1
+CHE,Switzerland,HIC,Switzerland,Switzerland,Switzerland,1
+CHN,China,UMC,China,China P.R.: Mainland,China,0
+CYP,Cyprus,HIC,Cyprus,Cyprus,Cyprus,0
+CZE,Czechia,HIC,Czech Republic,Czech Republic,Czech Republic,0
+DEU,Germany,HIC,Germany,Germany,Germany,1
+DNK,Denmark,HIC,Denmark,Denmark,Denmark,1
+ESP,Spain,HIC,Spain,Spain,Spain,1
+EST,Estonia,HIC,Estonia,Estonia,Estonia,0
+FIN,Finland,HIC,Finland,Finland,Finland,1
+FRA,France,HIC,France,France,France,1
+GBR,United Kingdom,HIC,United Kingdom,United Kingdom,United Kingdom,1
+GRC,Greece,HIC,Greece,Greece,Greece,0
+HUN,Hungary,HIC,Hungary,Hungary,Hungary,0
+IRL,Ireland,HIC,Ireland,Ireland,Ireland,1
+ISL,Iceland,HIC,Iceland,Iceland,Iceland,0
+ISR,Israel,HIC,Israel,Israel,Israel,0
+ITA,Italy,HIC,Italy,Italy,Italy,1
+JPN,Japan,HIC,Japan,Japan,Japan,1
+KOR,Korea Rep.,HIC,Korea Rep.,Korea,Korea,1
+LTU,Lithuania,HIC,Lithuania,Lithuania,Lithuania,0
+LUX,Luxembourg,HIC,Luxembourg,Luxembourg,Luxembourg,1
+LVA,Latvia,HIC,Latvia,Latvia,Latvia,0
+MLT,Malta,HIC,Malta,Malta,Malta,0
+NLD,Netherlands,HIC,Netherlands,Netherlands,Netherlands,1
+NOR,Norway,HIC,Norway,Norway,Norway,1
+NZL,New Zealand,HIC,New Zealand,New Zealand,New Zealand,1
+POL,Poland,HIC,Poland,Poland,Poland,0
+PRT,Portugal,HIC,Portugal,Portugal,Portugal,1
+SAU,Saudi Arabia,HIC,Saudi Arabia,Saudi Arabia,Saudi Arabia,1
+SGP,Singapore,HIC,Singapore,Singapore,Singapore,1
+SVK,Slovak Republic,HIC,Slovak Republic,Slovak Republic,Slovak Republic,0
+SVN,Slovenia,HIC,Slovenia,Slovenia,Slovenia,0
+SWE,Sweden,HIC,Sweden,Sweden,Sweden,1
+TUR,Turkiye,UMC,Turkiye,Turkey,Turkey,0
+TWN,Taiwan,HIC,,,Taiwan,0
+USA,United States,HIC,United States,United States,United States,1
+ARE,United Arab Emirates,HIC,United Arab Emirates,United Arab Emirates,United Arab Emirates,0
+BHR,Bahrain,HIC,Bahrain,Bahrain,Bahrain,0
+KWT,Kuwait,HIC,Kuwait,Kuwait,Kuwait,1
+QAT,Qatar,HIC,Qatar,Qatar,Qatar,0
+OMN,Oman,HIC,Oman,Oman,Oman,0
+HRV,Croatia,HIC,Croatia,Croatia,Croatia,0
+ROU,Romania,UMC,Romania,Romania,Romania,0
+BGR,Bulgaria,UMC,Bulgaria,Bulgaria,Bulgaria,0
+ARG,Argentina,UMC,Argentina,Argentina,Argentina,0
+BRA,Brazil,UMC,Brazil,Brazil,Brazil,0
+CHL,Chile,HIC,Chile,Chile,Chile,0
+COL,Colombia,UMC,Colombia,Colombia,Colombia,0
+CRI,Costa Rica,UMC,Costa Rica,Costa Rica,Costa Rica,0
+DOM,Dominican Republic,UMC,Dominican Republic,Dominican Republic,Dominican Republic,0
+ECU,Ecuador,UMC,Ecuador,Ecuador,Ecuador,0
+GTM,Guatemala,UMC,Guatemala,Guatemala,Guatemala,0
+MEX,Mexico,UMC,Mexico,Mexico,Mexico,0
+PAN,Panama,HIC,Panama,Panama,Panama,0
+PER,Peru,UMC,Peru,Peru,Peru,0
+PRY,Paraguay,UMC,Paraguay,Paraguay,Paraguay,0
+URY,Uruguay,HIC,Uruguay,Uruguay,Uruguay,0
+VNM,Vietnam,LMC,Viet Nam,Vietnam,Vietnam,0
+THA,Thailand,UMC,Thailand,Thailand,Thailand,0
+MYS,Malaysia,UMC,Malaysia,Malaysia,Malaysia,0
+IDN,Indonesia,UMC,Indonesia,Indonesia,Indonesia,0
+PHL,Philippines,LMC,Philippines,Philippines,Philippines,0
+IND,India,LMC,India,India,India,0
+BGD,Bangladesh,LMC,Bangladesh,Bangladesh,Bangladesh,0
+PAK,Pakistan,LMC,Pakistan,Pakistan,Pakistan,0
+KAZ,Kazakhstan,UMC,Kazakhstan,Kazakhstan,Kazakhstan,0
+UKR,Ukraine,LMC,Ukraine,Ukraine,Ukraine,0
+GEO,Georgia,UMC,Georgia,Georgia,Georgia,0
+ARM,Armenia,UMC,Armenia,Armenia,Armenia,0
+AZE,Azerbaijan,UMC,Azerbaijan,Azerbaijan,Azerbaijan,0
+MAR,Morocco,LMC,Morocco,Morocco,Morocco,0
+TUN,Tunisia,LMC,Tunisia,Tunisia,Tunisia,0
+EGY,Egypt,LMC,Egypt Arab Rep.,Egypt,Egypt,0
+ZAF,South Africa,UMC,South Africa,South Africa,South Africa,0
+NGA,Nigeria,LMC,Nigeria,Nigeria,Nigeria,0
+GHA,Ghana,LMC,Ghana,Ghana,Ghana,0
+KEN,Kenya,LMC,Kenya,Kenya,Kenya,0
+ETH,Ethiopia,LMC,Ethiopia,Ethiopia,Ethiopia,0

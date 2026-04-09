@@ -1,0 +1,82 @@
+iso3,country_name,income_group,gdp_usd,tier_median_ida_gdp_ratio,target_usd,fiscal_modifier,adjusted_target_usd,actual_contribution_usd,gap_usd,giving_rate,unga_alignment_score,wb_vote_share_score,ifc_presence_score,alignment_score,excluded_components
+AUS,Australia,HIC,,,,,,285000000.0,,,,0.0,0.0,0.0,unga_alignment_score
+AUT,Austria,HIC,,,,,,130000000.0,,,,0.0,0.0,0.0,unga_alignment_score
+BEL,Belgium,HIC,,,,,,200000000.0,,,,0.0,0.0,0.0,unga_alignment_score
+CAN,Canada,HIC,,,,,,560000000.0,,,,0.0,0.0,0.0,unga_alignment_score
+CHE,Switzerland,HIC,,,,,,410000000.0,,,,0.0,0.0,0.0,unga_alignment_score
+CHN,China,UMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+CYP,Cyprus,HIC,,,,,,0.0,,,,0.0,0.0,0.0,unga_alignment_score
+CZE,Czechia,HIC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+DEU,Germany,HIC,,,,,,1650000000.0,,,,0.0,0.0,0.0,unga_alignment_score
+DNK,Denmark,HIC,,,,,,310000000.0,,,,0.0,0.0,0.0,unga_alignment_score
+ESP,Spain,HIC,,,,,,185000000.0,,,,0.0,0.0,0.0,unga_alignment_score
+EST,Estonia,HIC,,,,,,0.0,,,,0.0,0.0,0.0,unga_alignment_score
+FIN,Finland,HIC,,,,,,130000000.0,,,,0.0,0.0,0.0,unga_alignment_score
+FRA,France,HIC,,,,,,980000000.0,,,,0.0,0.0,0.0,unga_alignment_score
+GBR,United Kingdom,HIC,,,,,,1850000000.0,,,,0.0,0.0,0.0,unga_alignment_score
+GRC,Greece,HIC,,,,,,0.0,,,,0.0,0.0,0.0,unga_alignment_score
+HUN,Hungary,HIC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+IRL,Ireland,HIC,,,,,,75000000.0,,,,0.0,0.0,0.0,unga_alignment_score
+ISL,Iceland,HIC,,,,,,0.0,,,,0.0,0.0,0.0,unga_alignment_score
+ISR,Israel,HIC,,,,,,0.0,,,,0.0,0.0,0.0,unga_alignment_score
+ITA,Italy,HIC,,,,,,420000000.0,,,,0.0,0.0,0.0,unga_alignment_score
+JPN,Japan,HIC,,,,,,2100000000.0,,,,0.0,0.0,0.0,unga_alignment_score
+KOR,Korea Rep.,HIC,,,,,,290000000.0,,,,0.0,0.0,0.0,unga_alignment_score
+LTU,Lithuania,HIC,,,,,,0.0,,,,0.0,0.0,0.0,unga_alignment_score
+LUX,Luxembourg,HIC,,,,,,80000000.0,,,,0.0,0.0,0.0,unga_alignment_score
+LVA,Latvia,HIC,,,,,,0.0,,,,0.0,0.0,0.0,unga_alignment_score
+MLT,Malta,HIC,,,,,,0.0,,,,0.0,0.0,0.0,unga_alignment_score
+NLD,Netherlands,HIC,,,,,,550000000.0,,,,0.0,0.0,0.0,unga_alignment_score
+NOR,Norway,HIC,,,,,,420000000.0,,,,0.0,0.0,0.0,unga_alignment_score
+NZL,New Zealand,HIC,,,,,,65000000.0,,,,0.0,0.0,0.0,unga_alignment_score
+POL,Poland,HIC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+PRT,Portugal,HIC,,,,,,60000000.0,,,,0.0,0.0,0.0,unga_alignment_score
+SAU,Saudi Arabia,HIC,,,,,,400000000.0,,,,0.0,0.0,0.0,unga_alignment_score
+SGP,Singapore,HIC,,,,,,55000000.0,,,,0.0,0.0,0.0,unga_alignment_score
+SVK,Slovak Republic,HIC,,,,,,0.0,,,,0.0,0.0,0.0,unga_alignment_score
+SVN,Slovenia,HIC,,,,,,0.0,,,,0.0,0.0,0.0,unga_alignment_score
+SWE,Sweden,HIC,,,,,,490000000.0,,,,0.0,0.0,0.0,unga_alignment_score
+TUR,Turkiye,UMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+USA,United States,HIC,,,,,,4050000000.0,,,,0.0,0.0,0.0,unga_alignment_score
+ARE,United Arab Emirates,HIC,,,,,,0.0,,,,0.0,0.0,0.0,unga_alignment_score
+BHR,Bahrain,HIC,,,,,,0.0,,,,0.0,0.0,0.0,unga_alignment_score
+KWT,Kuwait,HIC,,,,,,95000000.0,,,,0.0,0.0,0.0,unga_alignment_score
+QAT,Qatar,HIC,,,,,,0.0,,,,0.0,0.0,0.0,unga_alignment_score
+OMN,Oman,HIC,,,,,,0.0,,,,0.0,0.0,0.0,unga_alignment_score
+HRV,Croatia,HIC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+ROU,Romania,UMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+BGR,Bulgaria,UMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+ARG,Argentina,UMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+BRA,Brazil,UMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+CHL,Chile,HIC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+COL,Colombia,UMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+CRI,Costa Rica,UMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+DOM,Dominican Republic,UMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+ECU,Ecuador,UMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+GTM,Guatemala,UMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+MEX,Mexico,UMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+PAN,Panama,HIC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+PER,Peru,UMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+PRY,Paraguay,UMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+URY,Uruguay,HIC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+VNM,Vietnam,LMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+THA,Thailand,UMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+MYS,Malaysia,UMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+IDN,Indonesia,UMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+PHL,Philippines,LMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+IND,India,LMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+BGD,Bangladesh,LMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+PAK,Pakistan,LMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+KAZ,Kazakhstan,UMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+UKR,Ukraine,LMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+GEO,Georgia,UMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+ARM,Armenia,UMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+AZE,Azerbaijan,UMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+MAR,Morocco,LMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+TUN,Tunisia,LMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+EGY,Egypt,LMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+ZAF,South Africa,UMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+NGA,Nigeria,LMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+GHA,Ghana,LMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+KEN,Kenya,LMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score
+ETH,Ethiopia,LMC,,,,,,0.0,,,,0.0,100.0,50.0,unga_alignment_score

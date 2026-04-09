@@ -1,0 +1,13 @@
+# Sample countries for DRI pipeline validation
+# Covers: HIC donors, HIC non-donors, UMC non-donors, LMC non-donors
+# Use these 10 countries to spot-check dri_output.csv after a pipeline run.
+DEU   # HIC, current donor
+GBR   # HIC, current donor
+JPN   # HIC, current donor
+USA   # HIC, current donor
+CZE   # HIC, non-donor
+ARE   # HIC, non-donor
+CHN   # UMC, non-donor
+BRA   # UMC, non-donor
+IND   # LMC, non-donor
+VNM   # LMC, non-donor

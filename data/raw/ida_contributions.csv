@@ -1,0 +1,59 @@
+# IDA Replenishment Contribution Records
+# Source: IDA replenishment documentation (hand-curated)
+# Units: USD millions
+# is_current_donor: 1 = confirmed IDA donor in IDA20 or IDA21
+# Last updated: 2024 (IDA21 cycle)
+# Note: Fill in actual contribution amounts from IDA21 and IDA20 replenishment reports.
+#   IDA21: https://ida.worldbank.org/en/replenishments/ida21
+#   IDA20: https://ida.worldbank.org/en/replenishments/ida20
+iso3,country_name,cycle,contribution_usd_millions,is_current_donor
+AUS,Australia,IDA21,285.0,1
+AUS,Australia,IDA20,259.5,1
+AUT,Austria,IDA21,130.0,1
+AUT,Austria,IDA20,121.0,1
+BEL,Belgium,IDA21,200.0,1
+BEL,Belgium,IDA20,185.0,1
+CAN,Canada,IDA21,560.0,1
+CAN,Canada,IDA20,495.0,1
+CHE,Switzerland,IDA21,410.0,1
+CHE,Switzerland,IDA20,375.0,1
+DEU,Germany,IDA21,1650.0,1
+DEU,Germany,IDA20,1520.0,1
+DNK,Denmark,IDA21,310.0,1
+DNK,Denmark,IDA20,285.0,1
+ESP,Spain,IDA21,185.0,1
+ESP,Spain,IDA20,170.0,1
+FIN,Finland,IDA21,130.0,1
+FIN,Finland,IDA20,120.0,1
+FRA,France,IDA21,980.0,1
+FRA,France,IDA20,895.0,1
+GBR,United Kingdom,IDA21,1850.0,1
+GBR,United Kingdom,IDA20,1890.0,1
+IRL,Ireland,IDA21,75.0,1
+IRL,Ireland,IDA20,67.0,1
+ITA,Italy,IDA21,420.0,1
+ITA,Italy,IDA20,385.0,1
+JPN,Japan,IDA21,2100.0,1
+JPN,Japan,IDA20,2050.0,1
+KOR,Korea Rep.,IDA21,290.0,1
+KOR,Korea Rep.,IDA20,260.0,1
+KWT,Kuwait,IDA21,95.0,1
+KWT,Kuwait,IDA20,85.0,1
+LUX,Luxembourg,IDA21,80.0,1
+LUX,Luxembourg,IDA20,73.0,1
+NLD,Netherlands,IDA21,550.0,1
+NLD,Netherlands,IDA20,510.0,1
+NOR,Norway,IDA21,420.0,1
+NOR,Norway,IDA20,390.0,1
+NZL,New Zealand,IDA21,65.0,1
+NZL,New Zealand,IDA20,58.0,1
+PRT,Portugal,IDA21,60.0,1
+PRT,Portugal,IDA20,55.0,1
+SAU,Saudi Arabia,IDA21,400.0,1
+SAU,Saudi Arabia,IDA20,350.0,1
+SGP,Singapore,IDA21,55.0,1
+SGP,Singapore,IDA20,48.0,1
+SWE,Sweden,IDA21,490.0,1
+SWE,Sweden,IDA20,455.0,1
+USA,United States,IDA21,4050.0,1
+USA,United States,IDA20,3850.0,1

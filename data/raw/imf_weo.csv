@@ -1,0 +1,87 @@
+# IMF World Economic Outlook — Government Gross Debt (% of GDP)
+# Source: IMF WEO Database (https://www.imf.org/en/Publications/WEO)
+# Vintage: April 2024 (WEO 2024)
+# Column: govt_debt_pct_gdp = General government gross debt as % of GDP (latest available year)
+# Note: Replace with actual downloaded IMF WEO data. Expected columns: iso3, govt_debt_pct_gdp
+iso3,country_name,govt_debt_pct_gdp,reference_year
+ARE,United Arab Emirates,29.1,2023
+ARG,Argentina,89.4,2023
+ARM,Armenia,47.8,2023
+AUS,Australia,53.7,2023
+AUT,Austria,74.5,2023
+AZE,Azerbaijan,20.1,2023
+BGD,Bangladesh,39.5,2023
+BGR,Bulgaria,23.1,2023
+BHR,Bahrain,119.2,2023
+BRA,Brazil,88.1,2023
+BEL,Belgium,105.2,2023
+CAN,Canada,106.4,2023
+CHE,Switzerland,39.0,2023
+CHL,Chile,39.8,2023
+CHN,China,83.6,2023
+COL,Colombia,59.6,2023
+CRI,Costa Rica,64.5,2023
+CYP,Cyprus,77.3,2023
+CZE,Czechia,44.0,2023
+DEU,Germany,63.6,2023
+DNK,Denmark,30.1,2023
+DOM,Dominican Republic,56.8,2023
+ECU,Ecuador,55.2,2023
+EGY,Egypt,92.7,2023
+ESP,Spain,107.7,2023
+EST,Estonia,20.1,2023
+ETH,Ethiopia,37.8,2023
+FIN,Finland,74.5,2023
+FRA,France,111.9,2023
+GBR,United Kingdom,104.1,2023
+GEO,Georgia,39.9,2023
+GHA,Ghana,84.9,2023
+GRC,Greece,161.9,2023
+GTM,Guatemala,27.9,2023
+HRV,Croatia,63.7,2023
+HUN,Hungary,73.6,2023
+IDN,Indonesia,39.4,2023
+IND,India,83.9,2023
+IRL,Ireland,43.7,2023
+ISL,Iceland,68.1,2023
+ISR,Israel,61.5,2023
+ITA,Italy,137.3,2023
+JPN,Japan,261.3,2023
+KAZ,Kazakhstan,24.0,2023
+KEN,Kenya,72.5,2023
+KOR,Korea Rep.,54.3,2023
+KWT,Kuwait,3.4,2023
+LTU,Lithuania,38.4,2023
+LUX,Luxembourg,27.4,2023
+LVA,Latvia,43.1,2023
+MAR,Morocco,69.7,2023
+MEX,Mexico,54.0,2023
+MLT,Malta,50.0,2023
+MYS,Malaysia,66.8,2023
+NGA,Nigeria,37.7,2023
+NLD,Netherlands,48.2,2023
+NOR,Norway,39.5,2023
+NZL,New Zealand,49.9,2023
+OMN,Oman,36.9,2023
+PAK,Pakistan,74.9,2023
+PAN,Panama,59.0,2023
+PER,Peru,33.7,2023
+PHL,Philippines,60.2,2023
+POL,Poland,49.6,2023
+PRT,Portugal,99.1,2023
+PRY,Paraguay,42.8,2023
+QAT,Qatar,41.5,2023
+ROU,Romania,52.2,2023
+SAU,Saudi Arabia,26.2,2023
+SGP,Singapore,167.9,2023
+SVK,Slovak Republic,56.0,2023
+SVN,Slovenia,69.0,2023
+SWE,Sweden,31.7,2023
+THA,Thailand,62.6,2023
+TUN,Tunisia,79.8,2023
+TUR,Turkiye,31.2,2023
+UKR,Ukraine,88.1,2023
+URY,Uruguay,60.2,2023
+USA,United States,122.1,2023
+VNM,Vietnam,34.0,2023
+ZAF,South Africa,73.4,2023

@@ -1,0 +1,81 @@
+# IFC Active Portfolio Presence by Country
+# Source: IFC Country Portal (https://www.ifc.org/en/where-we-work)
+# active_portfolio: 1 = IFC has active investments/advisory in country, 0 = no active portfolio
+# Last updated: 2024
+iso3,country_name,active_portfolio
+ARG,Argentina,1
+ARM,Armenia,1
+AZE,Azerbaijan,1
+BGD,Bangladesh,1
+BGR,Bulgaria,1
+BRA,Brazil,1
+CHL,Chile,1
+CHN,China,1
+COL,Colombia,1
+CRI,Costa Rica,1
+CZE,Czechia,1
+DOM,Dominican Republic,1
+ECU,Ecuador,1
+EGY,Egypt,1
+ETH,Ethiopia,1
+GEO,Georgia,1
+GHA,Ghana,1
+GTM,Guatemala,1
+HRV,Croatia,1
+HUN,Hungary,1
+IDN,Indonesia,1
+IND,India,1
+ISR,Israel,0
+KAZ,Kazakhstan,1
+KEN,Kenya,1
+KOR,Korea Rep.,0
+LTU,Lithuania,0
+LVA,Latvia,0
+MAR,Morocco,1
+MEX,Mexico,1
+MYS,Malaysia,1
+NGA,Nigeria,1
+OMN,Oman,0
+PAK,Pakistan,1
+PAN,Panama,1
+PER,Peru,1
+PHL,Philippines,1
+POL,Poland,1
+PRY,Paraguay,1
+QAT,Qatar,0
+ROU,Romania,1
+SAU,Saudi Arabia,0
+SGP,Singapore,0
+SVK,Slovak Republic,0
+SVN,Slovenia,0
+THA,Thailand,1
+TUN,Tunisia,1
+TUR,Turkiye,1
+UKR,Ukraine,1
+URY,Uruguay,1
+VNM,Vietnam,1
+ZAF,South Africa,1
+ARE,United Arab Emirates,0
+BHR,Bahrain,0
+KWT,Kuwait,0
+AUS,Australia,0
+AUT,Austria,0
+BEL,Belgium,0
+CAN,Canada,0
+CHE,Switzerland,0
+DEU,Germany,0
+DNK,Denmark,0
+ESP,Spain,0
+FIN,Finland,0
+FRA,France,0
+GBR,United Kingdom,0
+IRL,Ireland,0
+ITA,Italy,0
+JPN,Japan,0
+LUX,Luxembourg,0
+NLD,Netherlands,0
+NOR,Norway,0
+NZL,New Zealand,0
+PRT,Portugal,0
+SWE,Sweden,0
+USA,United States,0

@@ -1,0 +1,82 @@
+iso3,country_name,income_group,is_current_donor,gdp_usd,gdp_per_capita_usd,fiscal_balance_pct_gdp,govt_debt_pct_gdp,ida20_contribution_usd,ida21_contribution_usd
+AUS,Australia,HIC,1,,,,53.7,259500000.0,285000000.0
+AUT,Austria,HIC,1,,,,74.5,121000000.0,130000000.0
+BEL,Belgium,HIC,1,,,,105.2,185000000.0,200000000.0
+CAN,Canada,HIC,1,,,,106.4,495000000.0,560000000.0
+CHE,Switzerland,HIC,1,,,,39.0,375000000.0,410000000.0
+CHN,China,UMC,0,,,,83.6,,
+CYP,Cyprus,HIC,0,,,,77.3,,
+CZE,Czechia,HIC,0,,,,44.0,,
+DEU,Germany,HIC,1,,,,63.6,1520000000.0,1650000000.0
+DNK,Denmark,HIC,1,,,,30.1,285000000.0,310000000.0
+ESP,Spain,HIC,1,,,,107.7,170000000.0,185000000.0
+EST,Estonia,HIC,0,,,,20.1,,
+FIN,Finland,HIC,1,,,,74.5,120000000.0,130000000.0
+FRA,France,HIC,1,,,,111.9,895000000.0,980000000.0
+GBR,United Kingdom,HIC,1,,,,104.1,1890000000.0,1850000000.0
+GRC,Greece,HIC,0,,,,161.9,,
+HUN,Hungary,HIC,0,,,,73.6,,
+IRL,Ireland,HIC,1,,,,43.7,67000000.0,75000000.0
+ISL,Iceland,HIC,0,,,,68.1,,
+ISR,Israel,HIC,0,,,,61.5,,
+ITA,Italy,HIC,1,,,,137.3,385000000.0,420000000.0
+JPN,Japan,HIC,1,,,,261.3,2050000000.0,2100000000.0
+KOR,Korea Rep.,HIC,1,,,,54.3,260000000.0,290000000.0
+LTU,Lithuania,HIC,0,,,,38.4,,
+LUX,Luxembourg,HIC,1,,,,27.4,73000000.0,80000000.0
+LVA,Latvia,HIC,0,,,,43.1,,
+MLT,Malta,HIC,0,,,,50.0,,
+NLD,Netherlands,HIC,1,,,,48.2,510000000.0,550000000.0
+NOR,Norway,HIC,1,,,,39.5,390000000.0,420000000.0
+NZL,New Zealand,HIC,1,,,,49.9,58000000.0,65000000.0
+POL,Poland,HIC,0,,,,49.6,,
+PRT,Portugal,HIC,1,,,,99.1,55000000.0,60000000.0
+SAU,Saudi Arabia,HIC,1,,,,26.2,350000000.0,400000000.0
+SGP,Singapore,HIC,1,,,,167.9,48000000.0,55000000.0
+SVK,Slovak Republic,HIC,0,,,,56.0,,
+SVN,Slovenia,HIC,0,,,,69.0,,
+SWE,Sweden,HIC,1,,,,31.7,455000000.0,490000000.0
+TUR,Turkiye,UMC,0,,,,31.2,,
+USA,United States,HIC,1,,,,122.1,3850000000.0,4050000000.0
+ARE,United Arab Emirates,HIC,0,,,,29.1,,
+BHR,Bahrain,HIC,0,,,,119.2,,
+KWT,Kuwait,HIC,1,,,,3.4,85000000.0,95000000.0
+QAT,Qatar,HIC,0,,,,41.5,,
+OMN,Oman,HIC,0,,,,36.9,,
+HRV,Croatia,HIC,0,,,,63.7,,
+ROU,Romania,UMC,0,,,,52.2,,
+BGR,Bulgaria,UMC,0,,,,23.1,,
+ARG,Argentina,UMC,0,,,,89.4,,
+BRA,Brazil,UMC,0,,,,88.1,,
+CHL,Chile,HIC,0,,,,39.8,,
+COL,Colombia,UMC,0,,,,59.6,,
+CRI,Costa Rica,UMC,0,,,,64.5,,
+DOM,Dominican Republic,UMC,0,,,,56.8,,
+ECU,Ecuador,UMC,0,,,,55.2,,
+GTM,Guatemala,UMC,0,,,,27.9,,
+MEX,Mexico,UMC,0,,,,54.0,,
+PAN,Panama,HIC,0,,,,59.0,,
+PER,Peru,UMC,0,,,,33.7,,
+PRY,Paraguay,UMC,0,,,,42.8,,
+URY,Uruguay,HIC,0,,,,60.2,,
+VNM,Vietnam,LMC,0,,,,34.0,,
+THA,Thailand,UMC,0,,,,62.6,,
+MYS,Malaysia,UMC,0,,,,66.8,,
+IDN,Indonesia,UMC,0,,,,39.4,,
+PHL,Philippines,LMC,0,,,,60.2,,
+IND,India,LMC,0,,,,83.9,,
+BGD,Bangladesh,LMC,0,,,,39.5,,
+PAK,Pakistan,LMC,0,,,,74.9,,
+KAZ,Kazakhstan,UMC,0,,,,24.0,,
+UKR,Ukraine,LMC,0,,,,88.1,,
+GEO,Georgia,UMC,0,,,,39.9,,
+ARM,Armenia,UMC,0,,,,47.8,,
+AZE,Azerbaijan,UMC,0,,,,20.1,,
+MAR,Morocco,LMC,0,,,,69.7,,
+TUN,Tunisia,LMC,0,,,,79.8,,
+EGY,Egypt,LMC,0,,,,92.7,,
+ZAF,South Africa,UMC,0,,,,73.4,,
+NGA,Nigeria,LMC,0,,,,37.7,,
+GHA,Ghana,LMC,0,,,,84.9,,
+KEN,Kenya,LMC,0,,,,72.5,,
+ETH,Ethiopia,LMC,0,,,,37.8,,
