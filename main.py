@@ -137,6 +137,8 @@ def main():
     print("    outputs/charts/chart2_giving_rate.png")
     print("    outputs/charts/chart3_capacity_vs_giving_rate.png")
     print("    outputs/charts/chart4_alignment_vs_gap.png")
+    print("    outputs/charts/chart5_all_countries_gap.png")
+    print("    outputs/charts/chart5_world_map.html")
     print("=" * 60 + "\n")
 
 

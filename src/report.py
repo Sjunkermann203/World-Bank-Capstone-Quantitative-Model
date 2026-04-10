@@ -289,6 +289,100 @@ def chart4_alignment_vs_gap(dri: pd.DataFrame) -> None:
 
 
 # ---------------------------------------------------------------------------
+# World map: interactive choropleth
+# ---------------------------------------------------------------------------
+
+def generate_world_map(dri: pd.DataFrame) -> None:
+    """Interactive choropleth HTML map — gap_usd shaded red (over-contributor) to green (large gap)."""
+    import plotly.graph_objects as go
+
+    valid = dri[dri["gap_usd"].notna()].copy()
+
+    def _fmt_usd(v):
+        if pd.isna(v):
+            return "N/A"
+        if abs(v) >= 1e9:
+            return f"${v/1e9:.2f}B"
+        return f"${v/1e6:.2f}M"
+
+    def _fmt_pct(v):
+        return "N/A" if pd.isna(v) else f"{v:.1%}"
+
+    def _fmt_score(v):
+        return "N/A" if pd.isna(v) else f"{v:.1f}"
+
+    valid["_gap_fmt"] = valid["gap_usd"].apply(_fmt_usd)
+    valid["_rate_fmt"] = valid["giving_rate"].apply(_fmt_pct)
+    valid["_align_fmt"] = valid["alignment_score"].apply(_fmt_score)
+    valid["_target_fmt"] = valid["adjusted_target_usd"].apply(_fmt_usd)
+
+    pos_gaps = valid.loc[valid["gap_usd"] > 0, "gap_usd"]
+    zmax = float(pos_gaps.quantile(0.95)) if len(pos_gaps) else 1e9
+    zmin = float(valid["gap_usd"].min())
+
+    fig = go.Figure(go.Choropleth(
+        locations=valid["iso3"],
+        z=valid["gap_usd"],
+        locationmode="ISO-3",
+        colorscale="RdYlGn",
+        zmin=zmin,
+        zmax=zmax,
+        zmid=0,
+        customdata=valid[["country_name", "_gap_fmt", "_rate_fmt", "_align_fmt", "_target_fmt"]].values,
+        hovertemplate=(
+            "<b>%{customdata[0]}</b><br>"
+            "Gap: %{customdata[1]}<br>"
+            "Giving Rate: %{customdata[2]}<br>"
+            "Alignment Score: %{customdata[3]}<br>"
+            "Capacity Target: %{customdata[4]}"
+            "<extra></extra>"
+        ),
+        colorbar=dict(
+            title="Contribution Gap",
+            tickformat="$,.0f",
+            len=0.75,
+        ),
+        marker_line_color="white",
+        marker_line_width=0.5,
+    ))
+
+    # Overlay country name labels at each country's centroid
+    fig.add_trace(go.Scattergeo(
+        locations=valid["iso3"],
+        locationmode="ISO-3",
+        text=valid["country_name"],
+        mode="text",
+        textfont=dict(size=7, color="black"),
+        hoverinfo="skip",
+        showlegend=False,
+    ))
+
+    fig.update_layout(
+        title=dict(text="Donor Readiness Index — IDA Contribution Gap by Country", font=dict(size=16)),
+        geo=dict(
+            showland=True,
+            landcolor="lightgray",
+            showframe=False,
+            showcoastlines=True,
+            coastlinecolor="white",
+            projection_type="natural earth",
+        ),
+        margin=dict(l=0, r=0, t=50, b=0),
+    )
+
+    # Warn on unmatched ISO-3 codes (Plotly silently drops them)
+    import plotly.express as px
+    known_iso3 = set(px.data.gapminder()["iso_alpha"].dropna())
+    for iso3 in valid["iso3"]:
+        if iso3 not in known_iso3:
+            logger.warning("ISO-3 code '%s' not found in Plotly Natural Earth geometry — will not appear on map", iso3)
+
+    path = CHARTS / "chart5_world_map.html"
+    fig.write_html(str(path), include_plotlyjs=True)
+    logger.info("World map saved to %s", path)
+
+
+# ---------------------------------------------------------------------------
 # Main report function
 # ---------------------------------------------------------------------------
 
@@ -309,5 +403,6 @@ def generate_report(
     chart3_capacity_vs_giving_rate(dri)
     chart4_alignment_vs_gap(dri)
     chart5_all_countries_gap(dri)
+    generate_world_map(dri)
     logger.info("All charts generated in %s", CHARTS)
     return dri
