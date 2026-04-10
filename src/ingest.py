@@ -39,7 +39,9 @@ MASTER_PATH = DATA_PROCESSED / "master.csv"
 WDI_INDICATORS = {
     "NY.GDP.MKTP.CD": "gdp_usd",
     "NY.GDP.PCAP.CD": "gdp_per_capita_usd",
-    "GC.BAL.CASH.GD.ZS": "fiscal_balance_pct_gdp",
+    # GC.BAL.CASH.GD.ZS (cash surplus/deficit) has no WB coverage; derive from revenue - expenditure
+    "GC.REV.XGRT.GD.ZS": "govt_revenue_pct_gdp",
+    "GC.XPN.TOTL.GD.ZS": "govt_expenditure_pct_gdp",
 }
 
 # Expected IMF WEO columns
@@ -278,6 +280,12 @@ def build_master(refresh: bool = False) -> pd.DataFrame:
     master = master.merge(wdi, on="iso3", how="left")
     master = master.merge(imf, on="iso3", how="left")
     master = master.merge(ida, on="iso3", how="left")
+
+    # Derive fiscal balance (% GDP) = revenue - expenditure
+    if "govt_revenue_pct_gdp" in master.columns and "govt_expenditure_pct_gdp" in master.columns:
+        master["fiscal_balance_pct_gdp"] = (
+            master["govt_revenue_pct_gdp"] - master["govt_expenditure_pct_gdp"]
+        )
 
     # Warn for any WDI indicator null
     for col in WDI_INDICATORS.values():

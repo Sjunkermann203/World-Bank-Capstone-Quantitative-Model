@@ -1,14 +1,29 @@
 # Canonical country mapping table for the Donor Readiness Index
 # Key: iso3 (ISO 3166-1 alpha-3)
-# income_group: HIC (High Income), UMC (Upper-Middle Income), LMC (Lower-Middle Income)
+# income_group: HIC (High Income), UMC (Upper-Middle Income), LMC (Lower-Middle Income), LIC (Low Income)
 # wdi_name, imf_name, ida_name: source-specific name variants (blank = same as country_name)
 iso3,country_name,income_group,wdi_name,imf_name,ida_name,is_current_donor
+ABW,Aruba,HIC,nan,nan,nan,0
+AND,Andorra,HIC,nan,nan,nan,0
+ARE,United Arab Emirates,HIC,United Arab Emirates,United Arab Emirates,United Arab Emirates,0
+ASM,American Samoa,HIC,nan,nan,nan,0
+ATG,Antigua and Barbuda,HIC,nan,nan,nan,0
 AUS,Australia,HIC,Australia,Australia,Australia,1
 AUT,Austria,HIC,Austria,Austria,Austria,1
 BEL,Belgium,HIC,Belgium,Belgium,Belgium,1
+BGR,Bulgaria,HIC,Bulgaria,Bulgaria,Bulgaria,0
+BHR,Bahrain,HIC,Bahrain,Bahrain,Bahrain,0
+BHS,"Bahamas, The",HIC,nan,nan,nan,0
+BMU,Bermuda,HIC,nan,nan,nan,0
+BRB,Barbados,HIC,nan,nan,nan,0
+BRN,Brunei Darussalam,HIC,nan,nan,nan,0
 CAN,Canada,HIC,Canada,Canada,Canada,1
 CHE,Switzerland,HIC,Switzerland,Switzerland,Switzerland,1
-CHN,China,UMC,China,China P.R.: Mainland,China,0
+CHI,Channel Islands,HIC,nan,nan,nan,0
+CHL,Chile,HIC,Chile,Chile,Chile,0
+CRI,Costa Rica,HIC,Costa Rica,Costa Rica,Costa Rica,0
+CUW,Curacao,HIC,nan,nan,nan,0
+CYM,Cayman Islands,HIC,nan,nan,nan,0
 CYP,Cyprus,HIC,Cyprus,Cyprus,Cyprus,0
 CZE,Czechia,HIC,Czech Republic,Czech Republic,Czech Republic,0
 DEU,Germany,HIC,Germany,Germany,Germany,1
@@ -17,71 +32,191 @@ ESP,Spain,HIC,Spain,Spain,Spain,1
 EST,Estonia,HIC,Estonia,Estonia,Estonia,0
 FIN,Finland,HIC,Finland,Finland,Finland,1
 FRA,France,HIC,France,France,France,1
+FRO,Faroe Islands,HIC,nan,nan,nan,0
 GBR,United Kingdom,HIC,United Kingdom,United Kingdom,United Kingdom,1
+GIB,Gibraltar,HIC,nan,nan,nan,0
 GRC,Greece,HIC,Greece,Greece,Greece,0
+GRL,Greenland,HIC,nan,nan,nan,0
+GUM,Guam,HIC,nan,nan,nan,0
+GUY,Guyana,HIC,nan,nan,nan,0
+HKG,"Hong Kong SAR, China",HIC,nan,nan,nan,0
+HRV,Croatia,HIC,Croatia,Croatia,Croatia,0
 HUN,Hungary,HIC,Hungary,Hungary,Hungary,0
+IMN,Isle of Man,HIC,nan,nan,nan,0
 IRL,Ireland,HIC,Ireland,Ireland,Ireland,1
 ISL,Iceland,HIC,Iceland,Iceland,Iceland,0
 ISR,Israel,HIC,Israel,Israel,Israel,0
 ITA,Italy,HIC,Italy,Italy,Italy,1
 JPN,Japan,HIC,Japan,Japan,Japan,1
-KOR,Korea Rep.,HIC,Korea Rep.,Korea,Korea,1
+KNA,St. Kitts and Nevis,HIC,nan,nan,nan,0
+KOR,"Korea, Rep.",HIC,Korea Rep.,Korea,Korea,1
+KWT,Kuwait,HIC,Kuwait,Kuwait,Kuwait,1
+LIE,Liechtenstein,HIC,nan,nan,nan,0
 LTU,Lithuania,HIC,Lithuania,Lithuania,Lithuania,0
 LUX,Luxembourg,HIC,Luxembourg,Luxembourg,Luxembourg,1
 LVA,Latvia,HIC,Latvia,Latvia,Latvia,0
+MAC,"Macao SAR, China",HIC,nan,nan,nan,0
+MAF,St. Martin (French part),HIC,nan,nan,nan,0
+MCO,Monaco,HIC,nan,nan,nan,0
 MLT,Malta,HIC,Malta,Malta,Malta,0
+MNP,Northern Mariana Islands,HIC,nan,nan,nan,0
+NCL,New Caledonia,HIC,nan,nan,nan,0
 NLD,Netherlands,HIC,Netherlands,Netherlands,Netherlands,1
 NOR,Norway,HIC,Norway,Norway,Norway,1
+NRU,Nauru,HIC,nan,nan,nan,0
 NZL,New Zealand,HIC,New Zealand,New Zealand,New Zealand,1
+OMN,Oman,HIC,Oman,Oman,Oman,0
+PAN,Panama,HIC,Panama,Panama,Panama,0
+PLW,Palau,HIC,nan,nan,nan,0
 POL,Poland,HIC,Poland,Poland,Poland,0
+PRI,Puerto Rico (US),HIC,nan,nan,nan,0
 PRT,Portugal,HIC,Portugal,Portugal,Portugal,1
+PYF,French Polynesia,HIC,nan,nan,nan,0
+QAT,Qatar,HIC,Qatar,Qatar,Qatar,0
+ROU,Romania,HIC,Romania,Romania,Romania,0
+RUS,Russian Federation,HIC,nan,nan,nan,0
 SAU,Saudi Arabia,HIC,Saudi Arabia,Saudi Arabia,Saudi Arabia,1
 SGP,Singapore,HIC,Singapore,Singapore,Singapore,1
+SMR,San Marino,HIC,nan,nan,nan,0
 SVK,Slovak Republic,HIC,Slovak Republic,Slovak Republic,Slovak Republic,0
 SVN,Slovenia,HIC,Slovenia,Slovenia,Slovenia,0
 SWE,Sweden,HIC,Sweden,Sweden,Sweden,1
-TUR,Turkiye,UMC,Turkiye,Turkey,Turkey,0
-TWN,Taiwan,HIC,,,Taiwan,0
-USA,United States,HIC,United States,United States,United States,1
-ARE,United Arab Emirates,HIC,United Arab Emirates,United Arab Emirates,United Arab Emirates,0
-BHR,Bahrain,HIC,Bahrain,Bahrain,Bahrain,0
-KWT,Kuwait,HIC,Kuwait,Kuwait,Kuwait,1
-QAT,Qatar,HIC,Qatar,Qatar,Qatar,0
-OMN,Oman,HIC,Oman,Oman,Oman,0
-HRV,Croatia,HIC,Croatia,Croatia,Croatia,0
-ROU,Romania,UMC,Romania,Romania,Romania,0
-BGR,Bulgaria,UMC,Bulgaria,Bulgaria,Bulgaria,0
-ARG,Argentina,UMC,Argentina,Argentina,Argentina,0
-BRA,Brazil,UMC,Brazil,Brazil,Brazil,0
-CHL,Chile,HIC,Chile,Chile,Chile,0
-COL,Colombia,UMC,Colombia,Colombia,Colombia,0
-CRI,Costa Rica,UMC,Costa Rica,Costa Rica,Costa Rica,0
-DOM,Dominican Republic,UMC,Dominican Republic,Dominican Republic,Dominican Republic,0
-ECU,Ecuador,UMC,Ecuador,Ecuador,Ecuador,0
-GTM,Guatemala,UMC,Guatemala,Guatemala,Guatemala,0
-MEX,Mexico,UMC,Mexico,Mexico,Mexico,0
-PAN,Panama,HIC,Panama,Panama,Panama,0
-PER,Peru,UMC,Peru,Peru,Peru,0
-PRY,Paraguay,UMC,Paraguay,Paraguay,Paraguay,0
+SXM,Sint Maarten (Dutch part),HIC,nan,nan,nan,0
+SYC,Seychelles,HIC,nan,nan,nan,0
+TCA,Turks and Caicos Islands,HIC,nan,nan,nan,0
+TTO,Trinidad and Tobago,HIC,nan,nan,nan,0
 URY,Uruguay,HIC,Uruguay,Uruguay,Uruguay,0
-VNM,Vietnam,LMC,Viet Nam,Vietnam,Vietnam,0
-THA,Thailand,UMC,Thailand,Thailand,Thailand,0
-MYS,Malaysia,UMC,Malaysia,Malaysia,Malaysia,0
-IDN,Indonesia,UMC,Indonesia,Indonesia,Indonesia,0
-PHL,Philippines,LMC,Philippines,Philippines,Philippines,0
-IND,India,LMC,India,India,India,0
+USA,United States,HIC,United States,United States,United States,1
+VGB,British Virgin Islands,HIC,nan,nan,nan,0
+VIR,Virgin Islands (U.S.),HIC,nan,nan,nan,0
+AFG,Afghanistan,LIC,nan,nan,nan,0
+BDI,Burundi,LIC,nan,nan,nan,0
+BFA,Burkina Faso,LIC,nan,nan,nan,0
+CAF,Central African Republic,LIC,nan,nan,nan,0
+COD,"Congo, Dem. Rep.",LIC,nan,nan,nan,0
+ERI,Eritrea,LIC,nan,nan,nan,0
+ETH,Ethiopia,LIC,,,,0
+GMB,"Gambia, The",LIC,nan,nan,nan,0
+GNB,Guinea-Bissau,LIC,nan,nan,nan,0
+LBR,Liberia,LIC,nan,nan,nan,0
+MDG,Madagascar,LIC,nan,nan,nan,0
+MLI,Mali,LIC,nan,nan,nan,0
+MOZ,Mozambique,LIC,nan,nan,nan,0
+MWI,Malawi,LIC,nan,nan,nan,0
+NER,Niger,LIC,nan,nan,nan,0
+PRK,"Korea, Dem. People's Rep.",LIC,nan,nan,nan,0
+RWA,Rwanda,LIC,nan,nan,nan,0
+SDN,Sudan,LIC,nan,nan,nan,0
+SLE,Sierra Leone,LIC,nan,nan,nan,0
+SOM,"Somalia, Fed. Rep.",LIC,nan,nan,nan,0
+SSD,South Sudan,LIC,nan,nan,nan,0
+SYR,Syrian Arab Republic,LIC,nan,nan,nan,0
+TCD,Chad,LIC,nan,nan,nan,0
+TGO,Togo,LIC,nan,nan,nan,0
+UGA,Uganda,LIC,nan,nan,nan,0
+YEM,"Yemen, Rep.",LIC,nan,nan,nan,0
+AGO,Angola,LMC,nan,nan,nan,0
+BEN,Benin,LMC,nan,nan,nan,0
 BGD,Bangladesh,LMC,Bangladesh,Bangladesh,Bangladesh,0
+BOL,Bolivia,LMC,nan,nan,nan,0
+BTN,Bhutan,LMC,nan,nan,nan,0
+CIV,Cote d'Ivoire,LMC,nan,nan,nan,0
+CMR,Cameroon,LMC,nan,nan,nan,0
+COG,"Congo, Rep.",LMC,nan,nan,nan,0
+COM,Comoros,LMC,nan,nan,nan,0
+DJI,Djibouti,LMC,nan,nan,nan,0
+EGY,"Egypt, Arab Rep.",LMC,Egypt Arab Rep.,Egypt,Egypt,0
+FSM,"Micronesia, Fed. Sts.",LMC,nan,nan,nan,0
+GHA,Ghana,LMC,Ghana,Ghana,Ghana,0
+GIN,Guinea,LMC,nan,nan,nan,0
+HND,Honduras,LMC,nan,nan,nan,0
+HTI,Haiti,LMC,nan,nan,nan,0
+IND,India,LMC,India,India,India,0
+JOR,Jordan,LMC,nan,nan,nan,0
+KEN,Kenya,LMC,Kenya,Kenya,Kenya,0
+KGZ,Kyrgyz Republic,LMC,nan,nan,nan,0
+KHM,Cambodia,LMC,nan,nan,nan,0
+KIR,Kiribati,LMC,nan,nan,nan,0
+LAO,Lao PDR,LMC,nan,nan,nan,0
+LBN,Lebanon,LMC,nan,nan,nan,0
+LKA,Sri Lanka,LMC,nan,nan,nan,0
+LSO,Lesotho,LMC,nan,nan,nan,0
+MAR,Morocco,LMC,Morocco,Morocco,Morocco,0
+MMR,Myanmar,LMC,nan,nan,nan,0
+MRT,Mauritania,LMC,nan,nan,nan,0
+NAM,Namibia,LMC,nan,nan,nan,0
+NGA,Nigeria,LMC,Nigeria,Nigeria,Nigeria,0
+NIC,Nicaragua,LMC,nan,nan,nan,0
+NPL,Nepal,LMC,nan,nan,nan,0
 PAK,Pakistan,LMC,Pakistan,Pakistan,Pakistan,0
-KAZ,Kazakhstan,UMC,Kazakhstan,Kazakhstan,Kazakhstan,0
-UKR,Ukraine,LMC,Ukraine,Ukraine,Ukraine,0
-GEO,Georgia,UMC,Georgia,Georgia,Georgia,0
+PHL,Philippines,LMC,Philippines,Philippines,Philippines,0
+PNG,Papua New Guinea,LMC,nan,nan,nan,0
+PSE,West Bank and Gaza,LMC,nan,nan,nan,0
+SEN,Senegal,LMC,nan,nan,nan,0
+SLB,Solomon Islands,LMC,nan,nan,nan,0
+STP,Sao Tome and Principe,LMC,nan,nan,nan,0
+SWZ,Eswatini,LMC,nan,nan,nan,0
+TJK,Tajikistan,LMC,nan,nan,nan,0
+TLS,Timor-Leste,LMC,nan,nan,nan,0
+TUN,Tunisia,LMC,Tunisia,Tunisia,Tunisia,0
+TZA,Tanzania,LMC,nan,nan,nan,0
+UZB,Uzbekistan,LMC,nan,nan,nan,0
+VNM,Viet Nam,LMC,Viet Nam,Vietnam,Vietnam,0
+VUT,Vanuatu,LMC,nan,nan,nan,0
+ZMB,Zambia,LMC,nan,nan,nan,0
+ZWE,Zimbabwe,LMC,nan,nan,nan,0
+ALB,Albania,UMC,nan,nan,nan,0
+ARG,Argentina,UMC,Argentina,Argentina,Argentina,0
 ARM,Armenia,UMC,Armenia,Armenia,Armenia,0
 AZE,Azerbaijan,UMC,Azerbaijan,Azerbaijan,Azerbaijan,0
-MAR,Morocco,LMC,Morocco,Morocco,Morocco,0
-TUN,Tunisia,LMC,Tunisia,Tunisia,Tunisia,0
-EGY,Egypt,LMC,Egypt Arab Rep.,Egypt,Egypt,0
+BIH,Bosnia and Herzegovina,UMC,nan,nan,nan,0
+BLR,Belarus,UMC,nan,nan,nan,0
+BLZ,Belize,UMC,nan,nan,nan,0
+BRA,Brazil,UMC,Brazil,Brazil,Brazil,0
+BWA,Botswana,UMC,nan,nan,nan,0
+CHN,China,UMC,China,China P.R.: Mainland,China,0
+COL,Colombia,UMC,Colombia,Colombia,Colombia,0
+CPV,Cabo Verde,UMC,nan,nan,nan,0
+CUB,Cuba,UMC,nan,nan,nan,0
+DMA,Dominica,UMC,nan,nan,nan,0
+DOM,Dominican Republic,UMC,Dominican Republic,Dominican Republic,Dominican Republic,0
+DZA,Algeria,UMC,nan,nan,nan,0
+ECU,Ecuador,UMC,Ecuador,Ecuador,Ecuador,0
+FJI,Fiji,UMC,nan,nan,nan,0
+GAB,Gabon,UMC,nan,nan,nan,0
+GEO,Georgia,UMC,Georgia,Georgia,Georgia,0
+GNQ,Equatorial Guinea,UMC,nan,nan,nan,0
+GRD,Grenada,UMC,nan,nan,nan,0
+GTM,Guatemala,UMC,Guatemala,Guatemala,Guatemala,0
+IDN,Indonesia,UMC,Indonesia,Indonesia,Indonesia,0
+IRN,"Iran, Islamic Rep.",UMC,nan,nan,nan,0
+IRQ,Iraq,UMC,nan,nan,nan,0
+JAM,Jamaica,UMC,nan,nan,nan,0
+KAZ,Kazakhstan,UMC,Kazakhstan,Kazakhstan,Kazakhstan,0
+LBY,Libya,UMC,nan,nan,nan,0
+LCA,St. Lucia,UMC,nan,nan,nan,0
+MDA,Moldova,UMC,nan,nan,nan,0
+MDV,Maldives,UMC,nan,nan,nan,0
+MEX,Mexico,UMC,Mexico,Mexico,Mexico,0
+MHL,Marshall Islands,UMC,nan,nan,nan,0
+MKD,North Macedonia,UMC,nan,nan,nan,0
+MNE,Montenegro,UMC,nan,nan,nan,0
+MNG,Mongolia,UMC,nan,nan,nan,0
+MUS,Mauritius,UMC,nan,nan,nan,0
+MYS,Malaysia,UMC,Malaysia,Malaysia,Malaysia,0
+PER,Peru,UMC,Peru,Peru,Peru,0
+PRY,Paraguay,UMC,Paraguay,Paraguay,Paraguay,0
+SLV,El Salvador,UMC,nan,nan,nan,0
+SRB,Serbia,UMC,nan,nan,nan,0
+SUR,Suriname,UMC,nan,nan,nan,0
+THA,Thailand,UMC,Thailand,Thailand,Thailand,0
+TKM,Turkmenistan,UMC,nan,nan,nan,0
+TON,Tonga,UMC,nan,nan,nan,0
+TUR,Turkiye,UMC,Turkiye,Turkey,Turkey,0
+TUV,Tuvalu,UMC,nan,nan,nan,0
+UKR,Ukraine,UMC,Ukraine,Ukraine,Ukraine,0
+VCT,St. Vincent and the Grenadines,UMC,nan,nan,nan,0
+VEN,"Venezuela, RB",UMC,,,,0
+WSM,Samoa,UMC,nan,nan,nan,0
+XKX,Kosovo,UMC,nan,nan,nan,0
 ZAF,South Africa,UMC,South Africa,South Africa,South Africa,0
-NGA,Nigeria,LMC,Nigeria,Nigeria,Nigeria,0
-GHA,Ghana,LMC,Ghana,Ghana,Ghana,0
-KEN,Kenya,LMC,Kenya,Kenya,Kenya,0
-ETH,Ethiopia,LMC,Ethiopia,Ethiopia,Ethiopia,0

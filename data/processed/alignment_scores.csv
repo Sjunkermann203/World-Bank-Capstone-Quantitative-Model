@@ -1,82 +1,213 @@
 iso3,country_name,unga_alignment_score,wb_vote_share_score,ifc_presence_score,alignment_score,excluded_components
-AUS,Australia,,0.0,0.0,0.0,unga_alignment_score
-AUT,Austria,,0.0,0.0,0.0,unga_alignment_score
-BEL,Belgium,,0.0,0.0,0.0,unga_alignment_score
-CAN,Canada,,0.0,0.0,0.0,unga_alignment_score
-CHE,Switzerland,,0.0,0.0,0.0,unga_alignment_score
-CHN,China,,0.0,100.0,50.0,unga_alignment_score
-CYP,Cyprus,,0.0,0.0,0.0,unga_alignment_score
-CZE,Czechia,,0.0,100.0,50.0,unga_alignment_score
-DEU,Germany,,0.0,0.0,0.0,unga_alignment_score
-DNK,Denmark,,0.0,0.0,0.0,unga_alignment_score
-ESP,Spain,,0.0,0.0,0.0,unga_alignment_score
-EST,Estonia,,0.0,0.0,0.0,unga_alignment_score
-FIN,Finland,,0.0,0.0,0.0,unga_alignment_score
-FRA,France,,0.0,0.0,0.0,unga_alignment_score
-GBR,United Kingdom,,0.0,0.0,0.0,unga_alignment_score
-GRC,Greece,,0.0,0.0,0.0,unga_alignment_score
-HUN,Hungary,,0.0,100.0,50.0,unga_alignment_score
-IRL,Ireland,,0.0,0.0,0.0,unga_alignment_score
-ISL,Iceland,,0.0,0.0,0.0,unga_alignment_score
-ISR,Israel,,0.0,0.0,0.0,unga_alignment_score
-ITA,Italy,,0.0,0.0,0.0,unga_alignment_score
-JPN,Japan,,0.0,0.0,0.0,unga_alignment_score
-KOR,Korea Rep.,,0.0,0.0,0.0,unga_alignment_score
-LTU,Lithuania,,0.0,0.0,0.0,unga_alignment_score
-LUX,Luxembourg,,0.0,0.0,0.0,unga_alignment_score
-LVA,Latvia,,0.0,0.0,0.0,unga_alignment_score
-MLT,Malta,,0.0,0.0,0.0,unga_alignment_score
-NLD,Netherlands,,0.0,0.0,0.0,unga_alignment_score
-NOR,Norway,,0.0,0.0,0.0,unga_alignment_score
-NZL,New Zealand,,0.0,0.0,0.0,unga_alignment_score
-POL,Poland,,0.0,100.0,50.0,unga_alignment_score
-PRT,Portugal,,0.0,0.0,0.0,unga_alignment_score
-SAU,Saudi Arabia,,0.0,0.0,0.0,unga_alignment_score
-SGP,Singapore,,0.0,0.0,0.0,unga_alignment_score
-SVK,Slovak Republic,,0.0,0.0,0.0,unga_alignment_score
-SVN,Slovenia,,0.0,0.0,0.0,unga_alignment_score
-SWE,Sweden,,0.0,0.0,0.0,unga_alignment_score
-TUR,Turkiye,,0.0,100.0,50.0,unga_alignment_score
-USA,United States,,0.0,0.0,0.0,unga_alignment_score
-ARE,United Arab Emirates,,0.0,0.0,0.0,unga_alignment_score
-BHR,Bahrain,,0.0,0.0,0.0,unga_alignment_score
-KWT,Kuwait,,0.0,0.0,0.0,unga_alignment_score
-QAT,Qatar,,0.0,0.0,0.0,unga_alignment_score
-OMN,Oman,,0.0,0.0,0.0,unga_alignment_score
-HRV,Croatia,,0.0,100.0,50.0,unga_alignment_score
-ROU,Romania,,0.0,100.0,50.0,unga_alignment_score
-BGR,Bulgaria,,0.0,100.0,50.0,unga_alignment_score
-ARG,Argentina,,0.0,100.0,50.0,unga_alignment_score
-BRA,Brazil,,0.0,100.0,50.0,unga_alignment_score
-CHL,Chile,,0.0,100.0,50.0,unga_alignment_score
-COL,Colombia,,0.0,100.0,50.0,unga_alignment_score
-CRI,Costa Rica,,0.0,100.0,50.0,unga_alignment_score
-DOM,Dominican Republic,,0.0,100.0,50.0,unga_alignment_score
-ECU,Ecuador,,0.0,100.0,50.0,unga_alignment_score
-GTM,Guatemala,,0.0,100.0,50.0,unga_alignment_score
-MEX,Mexico,,0.0,100.0,50.0,unga_alignment_score
-PAN,Panama,,0.0,100.0,50.0,unga_alignment_score
-PER,Peru,,0.0,100.0,50.0,unga_alignment_score
-PRY,Paraguay,,0.0,100.0,50.0,unga_alignment_score
-URY,Uruguay,,0.0,100.0,50.0,unga_alignment_score
-VNM,Vietnam,,0.0,100.0,50.0,unga_alignment_score
-THA,Thailand,,0.0,100.0,50.0,unga_alignment_score
-MYS,Malaysia,,0.0,100.0,50.0,unga_alignment_score
-IDN,Indonesia,,0.0,100.0,50.0,unga_alignment_score
-PHL,Philippines,,0.0,100.0,50.0,unga_alignment_score
-IND,India,,0.0,100.0,50.0,unga_alignment_score
-BGD,Bangladesh,,0.0,100.0,50.0,unga_alignment_score
-PAK,Pakistan,,0.0,100.0,50.0,unga_alignment_score
-KAZ,Kazakhstan,,0.0,100.0,50.0,unga_alignment_score
-UKR,Ukraine,,0.0,100.0,50.0,unga_alignment_score
-GEO,Georgia,,0.0,100.0,50.0,unga_alignment_score
-ARM,Armenia,,0.0,100.0,50.0,unga_alignment_score
-AZE,Azerbaijan,,0.0,100.0,50.0,unga_alignment_score
-MAR,Morocco,,0.0,100.0,50.0,unga_alignment_score
-TUN,Tunisia,,0.0,100.0,50.0,unga_alignment_score
-EGY,Egypt,,0.0,100.0,50.0,unga_alignment_score
-ZAF,South Africa,,0.0,100.0,50.0,unga_alignment_score
-NGA,Nigeria,,0.0,100.0,50.0,unga_alignment_score
-GHA,Ghana,,0.0,100.0,50.0,unga_alignment_score
-KEN,Kenya,,0.0,100.0,50.0,unga_alignment_score
-ETH,Ethiopia,,0.0,100.0,50.0,unga_alignment_score
+ABW,Aruba,,0.0,0,0.0,unga_alignment_score
+AND,Andorra,,0.0,0,0.0,unga_alignment_score
+ARE,United Arab Emirates,,0.0,0,0.0,unga_alignment_score
+ASM,American Samoa,,0.0,0,0.0,unga_alignment_score
+ATG,Antigua and Barbuda,,0.0,0,0.0,unga_alignment_score
+AUS,Australia,,0.0,0,0.0,unga_alignment_score
+AUT,Austria,,0.0,0,0.0,unga_alignment_score
+BEL,Belgium,,0.0,0,0.0,unga_alignment_score
+BGR,Bulgaria,,0.0,100,50.0,unga_alignment_score
+BHR,Bahrain,,0.0,0,0.0,unga_alignment_score
+BHS,"Bahamas, The",,0.0,0,0.0,unga_alignment_score
+BMU,Bermuda,,0.0,0,0.0,unga_alignment_score
+BRB,Barbados,,0.0,0,0.0,unga_alignment_score
+BRN,Brunei Darussalam,,0.0,0,0.0,unga_alignment_score
+CAN,Canada,,0.0,0,0.0,unga_alignment_score
+CHE,Switzerland,,0.0,0,0.0,unga_alignment_score
+CHI,Channel Islands,,0.0,0,0.0,unga_alignment_score
+CHL,Chile,,0.0,100,50.0,unga_alignment_score
+CRI,Costa Rica,,0.0,100,50.0,unga_alignment_score
+CUW,Curacao,,0.0,0,0.0,unga_alignment_score
+CYM,Cayman Islands,,0.0,0,0.0,unga_alignment_score
+CYP,Cyprus,,0.0,0,0.0,unga_alignment_score
+CZE,Czechia,,0.0,100,50.0,unga_alignment_score
+DEU,Germany,,0.0,0,0.0,unga_alignment_score
+DNK,Denmark,,0.0,0,0.0,unga_alignment_score
+ESP,Spain,,0.0,0,0.0,unga_alignment_score
+EST,Estonia,,0.0,0,0.0,unga_alignment_score
+FIN,Finland,,0.0,0,0.0,unga_alignment_score
+FRA,France,,0.0,0,0.0,unga_alignment_score
+FRO,Faroe Islands,,0.0,0,0.0,unga_alignment_score
+GBR,United Kingdom,,0.0,0,0.0,unga_alignment_score
+GRC,Greece,,0.0,0,0.0,unga_alignment_score
+GRL,Greenland,,0.0,0,0.0,unga_alignment_score
+GUM,Guam,,0.0,0,0.0,unga_alignment_score
+GUY,Guyana,,0.0,0,0.0,unga_alignment_score
+HKG,"Hong Kong SAR, China",,0.0,0,0.0,unga_alignment_score
+HRV,Croatia,,0.0,100,50.0,unga_alignment_score
+HUN,Hungary,,0.0,100,50.0,unga_alignment_score
+IMN,Isle of Man,,0.0,0,0.0,unga_alignment_score
+IRL,Ireland,,0.0,0,0.0,unga_alignment_score
+ISL,Iceland,,0.0,0,0.0,unga_alignment_score
+ISR,Israel,,0.0,0,0.0,unga_alignment_score
+ITA,Italy,,0.0,0,0.0,unga_alignment_score
+JPN,Japan,,0.0,0,0.0,unga_alignment_score
+KNA,St. Kitts and Nevis,,0.0,0,0.0,unga_alignment_score
+KOR,"Korea, Rep.",,0.0,0,0.0,unga_alignment_score
+KWT,Kuwait,,0.0,0,0.0,unga_alignment_score
+LIE,Liechtenstein,,0.0,0,0.0,unga_alignment_score
+LTU,Lithuania,,0.0,0,0.0,unga_alignment_score
+LUX,Luxembourg,,0.0,0,0.0,unga_alignment_score
+LVA,Latvia,,0.0,0,0.0,unga_alignment_score
+MAC,"Macao SAR, China",,0.0,0,0.0,unga_alignment_score
+MAF,St. Martin (French part),,0.0,0,0.0,unga_alignment_score
+MCO,Monaco,,0.0,0,0.0,unga_alignment_score
+MLT,Malta,,0.0,0,0.0,unga_alignment_score
+MNP,Northern Mariana Islands,,0.0,0,0.0,unga_alignment_score
+NCL,New Caledonia,,0.0,0,0.0,unga_alignment_score
+NLD,Netherlands,,0.0,0,0.0,unga_alignment_score
+NOR,Norway,,0.0,0,0.0,unga_alignment_score
+NRU,Nauru,,0.0,0,0.0,unga_alignment_score
+NZL,New Zealand,,0.0,0,0.0,unga_alignment_score
+OMN,Oman,,0.0,0,0.0,unga_alignment_score
+PAN,Panama,,0.0,100,50.0,unga_alignment_score
+PLW,Palau,,0.0,0,0.0,unga_alignment_score
+POL,Poland,,0.0,100,50.0,unga_alignment_score
+PRI,Puerto Rico (US),,0.0,0,0.0,unga_alignment_score
+PRT,Portugal,,0.0,0,0.0,unga_alignment_score
+PYF,French Polynesia,,0.0,0,0.0,unga_alignment_score
+QAT,Qatar,,0.0,0,0.0,unga_alignment_score
+ROU,Romania,,0.0,100,50.0,unga_alignment_score
+RUS,Russian Federation,,0.0,0,0.0,unga_alignment_score
+SAU,Saudi Arabia,,0.0,0,0.0,unga_alignment_score
+SGP,Singapore,,0.0,0,0.0,unga_alignment_score
+SMR,San Marino,,0.0,0,0.0,unga_alignment_score
+SVK,Slovak Republic,,0.0,0,0.0,unga_alignment_score
+SVN,Slovenia,,0.0,0,0.0,unga_alignment_score
+SWE,Sweden,,0.0,0,0.0,unga_alignment_score
+SXM,Sint Maarten (Dutch part),,0.0,0,0.0,unga_alignment_score
+SYC,Seychelles,,0.0,0,0.0,unga_alignment_score
+TCA,Turks and Caicos Islands,,0.0,0,0.0,unga_alignment_score
+TTO,Trinidad and Tobago,,0.0,0,0.0,unga_alignment_score
+URY,Uruguay,,0.0,100,50.0,unga_alignment_score
+USA,United States,,0.0,0,0.0,unga_alignment_score
+VIR,Virgin Islands (U.S.),,0.0,0,0.0,unga_alignment_score
+AFG,Afghanistan,,0.0,0,0.0,unga_alignment_score
+BDI,Burundi,,0.0,0,0.0,unga_alignment_score
+BFA,Burkina Faso,,0.0,0,0.0,unga_alignment_score
+CAF,Central African Republic,,0.0,0,0.0,unga_alignment_score
+COD,"Congo, Dem. Rep.",,0.0,0,0.0,unga_alignment_score
+ETH,Ethiopia,,0.0,100,50.0,unga_alignment_score
+GMB,"Gambia, The",,0.0,0,0.0,unga_alignment_score
+GNB,Guinea-Bissau,,0.0,0,0.0,unga_alignment_score
+LBR,Liberia,,0.0,0,0.0,unga_alignment_score
+MDG,Madagascar,,0.0,0,0.0,unga_alignment_score
+MLI,Mali,,0.0,0,0.0,unga_alignment_score
+MOZ,Mozambique,,0.0,0,0.0,unga_alignment_score
+MWI,Malawi,,0.0,0,0.0,unga_alignment_score
+NER,Niger,,0.0,0,0.0,unga_alignment_score
+RWA,Rwanda,,0.0,0,0.0,unga_alignment_score
+SDN,Sudan,,0.0,0,0.0,unga_alignment_score
+SLE,Sierra Leone,,0.0,0,0.0,unga_alignment_score
+SOM,"Somalia, Fed. Rep.",,0.0,0,0.0,unga_alignment_score
+SYR,Syrian Arab Republic,,0.0,0,0.0,unga_alignment_score
+TCD,Chad,,0.0,0,0.0,unga_alignment_score
+TGO,Togo,,0.0,0,0.0,unga_alignment_score
+UGA,Uganda,,0.0,0,0.0,unga_alignment_score
+YEM,"Yemen, Rep.",,0.0,0,0.0,unga_alignment_score
+AGO,Angola,,0.0,0,0.0,unga_alignment_score
+BEN,Benin,,0.0,0,0.0,unga_alignment_score
+BGD,Bangladesh,,0.0,100,50.0,unga_alignment_score
+BOL,Bolivia,,0.0,0,0.0,unga_alignment_score
+BTN,Bhutan,,0.0,0,0.0,unga_alignment_score
+CIV,Cote d'Ivoire,,0.0,0,0.0,unga_alignment_score
+CMR,Cameroon,,0.0,0,0.0,unga_alignment_score
+COG,"Congo, Rep.",,0.0,0,0.0,unga_alignment_score
+COM,Comoros,,0.0,0,0.0,unga_alignment_score
+DJI,Djibouti,,0.0,0,0.0,unga_alignment_score
+EGY,"Egypt, Arab Rep.",,0.0,100,50.0,unga_alignment_score
+FSM,"Micronesia, Fed. Sts.",,0.0,0,0.0,unga_alignment_score
+GHA,Ghana,,0.0,100,50.0,unga_alignment_score
+GIN,Guinea,,0.0,0,0.0,unga_alignment_score
+HND,Honduras,,0.0,0,0.0,unga_alignment_score
+HTI,Haiti,,0.0,0,0.0,unga_alignment_score
+IND,India,,0.0,100,50.0,unga_alignment_score
+JOR,Jordan,,0.0,0,0.0,unga_alignment_score
+KEN,Kenya,,0.0,100,50.0,unga_alignment_score
+KGZ,Kyrgyz Republic,,0.0,0,0.0,unga_alignment_score
+KHM,Cambodia,,0.0,0,0.0,unga_alignment_score
+KIR,Kiribati,,0.0,0,0.0,unga_alignment_score
+LAO,Lao PDR,,0.0,0,0.0,unga_alignment_score
+LBN,Lebanon,,0.0,0,0.0,unga_alignment_score
+LKA,Sri Lanka,,0.0,0,0.0,unga_alignment_score
+LSO,Lesotho,,0.0,0,0.0,unga_alignment_score
+MAR,Morocco,,0.0,100,50.0,unga_alignment_score
+MMR,Myanmar,,0.0,0,0.0,unga_alignment_score
+MRT,Mauritania,,0.0,0,0.0,unga_alignment_score
+NAM,Namibia,,0.0,0,0.0,unga_alignment_score
+NGA,Nigeria,,0.0,100,50.0,unga_alignment_score
+NIC,Nicaragua,,0.0,0,0.0,unga_alignment_score
+NPL,Nepal,,0.0,0,0.0,unga_alignment_score
+PAK,Pakistan,,0.0,100,50.0,unga_alignment_score
+PHL,Philippines,,0.0,100,50.0,unga_alignment_score
+PNG,Papua New Guinea,,0.0,0,0.0,unga_alignment_score
+PSE,West Bank and Gaza,,0.0,0,0.0,unga_alignment_score
+SEN,Senegal,,0.0,0,0.0,unga_alignment_score
+SLB,Solomon Islands,,0.0,0,0.0,unga_alignment_score
+STP,Sao Tome and Principe,,0.0,0,0.0,unga_alignment_score
+SWZ,Eswatini,,0.0,0,0.0,unga_alignment_score
+TJK,Tajikistan,,0.0,0,0.0,unga_alignment_score
+TLS,Timor-Leste,,0.0,0,0.0,unga_alignment_score
+TUN,Tunisia,,0.0,100,50.0,unga_alignment_score
+TZA,Tanzania,,0.0,0,0.0,unga_alignment_score
+UZB,Uzbekistan,,0.0,0,0.0,unga_alignment_score
+VNM,Viet Nam,,0.0,100,50.0,unga_alignment_score
+VUT,Vanuatu,,0.0,0,0.0,unga_alignment_score
+ZMB,Zambia,,0.0,0,0.0,unga_alignment_score
+ZWE,Zimbabwe,,0.0,0,0.0,unga_alignment_score
+ALB,Albania,,0.0,0,0.0,unga_alignment_score
+ARG,Argentina,,0.0,100,50.0,unga_alignment_score
+ARM,Armenia,,0.0,100,50.0,unga_alignment_score
+AZE,Azerbaijan,,0.0,100,50.0,unga_alignment_score
+BIH,Bosnia and Herzegovina,,0.0,0,0.0,unga_alignment_score
+BLR,Belarus,,0.0,0,0.0,unga_alignment_score
+BLZ,Belize,,0.0,0,0.0,unga_alignment_score
+BRA,Brazil,,0.0,100,50.0,unga_alignment_score
+BWA,Botswana,,0.0,0,0.0,unga_alignment_score
+CHN,China,,0.0,100,50.0,unga_alignment_score
+COL,Colombia,,0.0,100,50.0,unga_alignment_score
+CPV,Cabo Verde,,0.0,0,0.0,unga_alignment_score
+CUB,Cuba,,0.0,0,0.0,unga_alignment_score
+DMA,Dominica,,0.0,0,0.0,unga_alignment_score
+DOM,Dominican Republic,,0.0,100,50.0,unga_alignment_score
+DZA,Algeria,,0.0,0,0.0,unga_alignment_score
+ECU,Ecuador,,0.0,100,50.0,unga_alignment_score
+FJI,Fiji,,0.0,0,0.0,unga_alignment_score
+GAB,Gabon,,0.0,0,0.0,unga_alignment_score
+GEO,Georgia,,0.0,100,50.0,unga_alignment_score
+GNQ,Equatorial Guinea,,0.0,0,0.0,unga_alignment_score
+GRD,Grenada,,0.0,0,0.0,unga_alignment_score
+GTM,Guatemala,,0.0,100,50.0,unga_alignment_score
+IDN,Indonesia,,0.0,100,50.0,unga_alignment_score
+IRN,"Iran, Islamic Rep.",,0.0,0,0.0,unga_alignment_score
+IRQ,Iraq,,0.0,0,0.0,unga_alignment_score
+JAM,Jamaica,,0.0,0,0.0,unga_alignment_score
+KAZ,Kazakhstan,,0.0,100,50.0,unga_alignment_score
+LBY,Libya,,0.0,0,0.0,unga_alignment_score
+LCA,St. Lucia,,0.0,0,0.0,unga_alignment_score
+MDA,Moldova,,0.0,0,0.0,unga_alignment_score
+MDV,Maldives,,0.0,0,0.0,unga_alignment_score
+MEX,Mexico,,0.0,100,50.0,unga_alignment_score
+MHL,Marshall Islands,,0.0,0,0.0,unga_alignment_score
+MKD,North Macedonia,,0.0,0,0.0,unga_alignment_score
+MNE,Montenegro,,0.0,0,0.0,unga_alignment_score
+MNG,Mongolia,,0.0,0,0.0,unga_alignment_score
+MUS,Mauritius,,0.0,0,0.0,unga_alignment_score
+MYS,Malaysia,,0.0,100,50.0,unga_alignment_score
+PER,Peru,,0.0,100,50.0,unga_alignment_score
+PRY,Paraguay,,0.0,100,50.0,unga_alignment_score
+SLV,El Salvador,,0.0,0,0.0,unga_alignment_score
+SRB,Serbia,,0.0,0,0.0,unga_alignment_score
+SUR,Suriname,,0.0,0,0.0,unga_alignment_score
+THA,Thailand,,0.0,100,50.0,unga_alignment_score
+TKM,Turkmenistan,,0.0,0,0.0,unga_alignment_score
+TON,Tonga,,0.0,0,0.0,unga_alignment_score
+TUR,Turkiye,,0.0,100,50.0,unga_alignment_score
+TUV,Tuvalu,,0.0,0,0.0,unga_alignment_score
+UKR,Ukraine,,0.0,100,50.0,unga_alignment_score
+VCT,St. Vincent and the Grenadines,,0.0,0,0.0,unga_alignment_score
+VEN,"Venezuela, RB",,0.0,0,0.0,unga_alignment_score
+WSM,Samoa,,0.0,0,0.0,unga_alignment_score
+XKX,Kosovo,,0.0,0,0.0,unga_alignment_score
+ZAF,South Africa,,0.0,100,50.0,unga_alignment_score

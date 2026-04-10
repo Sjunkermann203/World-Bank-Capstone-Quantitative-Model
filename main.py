@@ -63,6 +63,11 @@ def parse_args() -> argparse.Namespace:
             "Does not run scoring or generate output files."
         ),
     )
+    parser.add_argument(
+        "--no-fiscal-modifier",
+        action="store_true",
+        help="Disable the fiscal balance modifier so all targets use the raw tier benchmark.",
+    )
     return parser.parse_args()
 
 
@@ -98,7 +103,7 @@ def main():
 
     # ── Stage 2: Capacity scoring ─────────────────────────────────────────────
     logger.info("Stage 2/4 — Capacity scoring")
-    capacity = score_capacity(master)
+    capacity = score_capacity(master, fiscal_modifier=not args.no_fiscal_modifier)
     logger.info(
         "Capacity scoring complete: %d countries scored, %d with valid gap",
         len(capacity),

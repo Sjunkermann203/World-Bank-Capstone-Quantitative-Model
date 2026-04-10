@@ -9,7 +9,7 @@
 
 ## 2. Data Ingestion Pipeline
 
-- [x] 2.1 Implement `src/ingest.py` — WDI fetch function: retrieve GDP, GDP per capita, and fiscal balance for all target countries; write to `data/cache/wdi.csv`; skip API call if cache exists and `--refresh` not set
+- [x] 2.1 Implement `src/ingest.py` — WDI fetch function: retrieve GDP, GDP per capita, and fiscal balance for all target countries; write to `data/cache/wdi.csv`; skip API call if cache exists and `--refresh` not set. Uses direct REST API with batched requests (3 countries/batch, 120s timeout) — wbdata replaced due to memory issues.
 - [x] 2.2 Implement IMF WEO loader in `src/ingest.py`: read `data/raw/imf_weo.csv`, validate expected columns, raise `SchemaValidationError` with column names if schema mismatch
 - [x] 2.3 Implement IDA contributions loader in `src/ingest.py`: read `data/raw/ida_contributions.csv`, warn and skip rows with unresolved country codes
 - [x] 2.4 Implement country identity resolution in `src/ingest.py`: load `data/country_map.csv`, join all sources on ISO3 code, log warnings for unresolved country names
@@ -44,11 +44,23 @@
 
 - [x] 6.1 Implement `main.py` pipeline runner: parse CLI args (`--refresh` flag, optional `--top-n` for chart count); call stages in order: ingest → capacity → alignment → report; print stage completion messages
 - [x] 6.2 Add a `--dry-run` flag that runs ingestion only and prints the master dataset summary (row count, null counts per column) without writing scored output
+- [x] 6.3 Add `--no-fiscal-modifier` flag to disable fiscal balance adjustment for comparison runs; passes `fiscal_modifier=False` to `score_capacity()`
 
 ## 7. Validation and Testing
 
 - [x] 7.1 Create `data/raw/sample_countries.txt` listing 10 test countries spanning both income tiers and a mix of current donors and non-donors
-- [ ] 7.2 Run the full pipeline against sample countries; verify `dri_output.csv` has expected columns and no unexpected nulls in scored fields
-- [ ] 7.3 Manually verify gap and giving rate for 2–3 known countries against hand-calculated benchmarks
-- [ ] 7.4 Verify all four chart files are created and open correctly; check that reference lines and labels appear as expected
-- [ ] 7.5 Confirm `run_metadata.json` logs tier medians and the donor set used
+- [x] 7.2 Run the full pipeline against sample countries; verify `dri_output.csv` has expected columns and no unexpected nulls in scored fields
+- [x] 7.3 Manually verify gap and giving rate for 2–3 known countries against hand-calculated benchmarks (USA: $3.1B with modifier / $4.9B without; NOR: surplus correctly reduces gap)
+- [x] 7.4 Verify all four chart files are created and open correctly; check that reference lines and labels appear as expected
+- [x] 7.5 Confirm `run_metadata.json` logs tier medians and the donor set used
+
+## 8. Bug Fixes and Data Quality
+
+- [x] 8.1 Replace wbdata library with direct World Bank REST API calls — wbdata consumed 1.8GB RAM without returning; new implementation uses 3-country batches with 120s timeouts and retry logic
+- [x] 8.2 Fix `fiscal_balance_pct_gdp` — `GC.BAL.CASH.GD.ZS` returns all-null; derive from `GC.REV.XGRT.GD.ZS` (revenue % GDP) minus `GC.XPN.TOTL.GD.ZS` (expenditure % GDP); coverage improved from 0% to 86%
+- [x] 8.3 Create `scripts/debug_wdi.py` for isolated WDI API testing without running the full pipeline
+
+## 9. Remaining Data Gaps
+
+- [ ] 9.1 Source UNGA votes data — download from Harvard Dataverse, place at `data/raw/unga_votes.csv`; UNGA alignment scores currently null for all countries
+- [ ] 9.2 Source World Bank vote shares data — download from World Bank, place at `data/raw/wb_vote_shares.csv`; WB vote share scores currently 0 for all countries

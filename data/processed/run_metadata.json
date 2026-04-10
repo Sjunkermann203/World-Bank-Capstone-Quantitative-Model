@@ -1,8 +1,65 @@
 {
   "tier_medians": {
-    "_global": NaN
+    "_global": 0.0003100831488076883,
+    "HIC": 0.0003100831488076883,
+    "LIC": 6.768567942644433e-06,
+    "LMC": 2.0610690375842893e-05,
+    "UMC": 6.141676408486962e-05
   },
   "donor_sets": {
-    "_global": []
+    "_global": [
+      "AUS",
+      "AUT",
+      "BEL",
+      "CAN",
+      "CHE",
+      "DEU",
+      "DNK",
+      "ESP",
+      "FIN",
+      "FRA",
+      "GBR",
+      "IRL",
+      "ITA",
+      "JPN",
+      "KOR",
+      "KWT",
+      "LUX",
+      "NLD",
+      "NOR",
+      "NZL",
+      "PRT",
+      "SAU",
+      "SGP",
+      "SWE",
+      "USA"
+    ],
+    "HIC": [
+      "AUS",
+      "AUT",
+      "BEL",
+      "CAN",
+      "CHE",
+      "DEU",
+      "DNK",
+      "ESP",
+      "FIN",
+      "FRA",
+      "GBR",
+      "IRL",
+      "ITA",
+      "JPN",
+      "KOR",
+      "KWT",
+      "LUX",
+      "NLD",
+      "NOR",
+      "NZL",
+      "PRT",
+      "SAU",
+      "SGP",
+      "SWE",
+      "USA"
+    ]
   }
 }
