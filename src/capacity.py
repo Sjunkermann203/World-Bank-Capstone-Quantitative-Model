@@ -2,7 +2,7 @@
 Capacity scoring for the Donor Readiness Index.
 
 Computes:
-  - Income-tier-adjusted benchmark IDA/GDP ratio (from current donors)
+  - Global benchmark IDA/GDP ratio (from current donors)
   - Capacity-based target contribution per country
   - Fiscal modifier (±20% max, linear)
   - Adjusted target contribution
@@ -11,7 +11,7 @@ Computes:
 
 Reads:  data/processed/master.csv
 Writes: data/processed/capacity_scores.csv
-        data/processed/run_metadata.json (tier medians + donor set)
+        data/processed/run_metadata.json (benchmark ratio + donor set)
 """
 
 from __future__ import annotations
@@ -35,26 +35,17 @@ RUN_METADATA_PATH = DATA_PROCESSED / "run_metadata.json"
 # Fiscal modifier parameters
 FISCAL_MODIFIER_CAP = 0.20      # ±20% cap
 FISCAL_SCALE_FACTOR = 0.04      # 5% fiscal balance → 20% modifier  (0.20 / 5.0)
-MIN_DONORS_PER_TIER = 3         # fall back to global median if below this
 
 
 # ---------------------------------------------------------------------------
-# Tier median calculation
+# Global median calculation
 # ---------------------------------------------------------------------------
 
-def compute_tier_medians(master: pd.DataFrame) -> dict[str, float]:
+def compute_global_median(master: pd.DataFrame) -> tuple[float, list]:
     """
-    Compute the median IDA/GDP ratio for each income tier using current donors.
+    Compute the global median IDA/GDP ratio across all current donors.
 
-    For tiers with enough donors (≥ MIN_DONORS_PER_TIER), uses the observed
-    median IDA/GDP ratio for that tier's donors.
-
-    For tiers with no (or too few) donors, derives a scaled benchmark from the
-    HIC median proportional to that tier's median GDP per capita vs. HIC median
-    GDP per capita. This ensures LIC/LMC/UMC countries are benchmarked relative
-    to their income level rather than holding them to an HIC standard.
-
-    Returns a dict mapping income_group → median_ida_gdp_ratio, plus "_global".
+    Returns (global_median_ratio, donor_iso3_list).
     """
     donors = master[master["is_current_donor"] == 1].copy()
 
@@ -68,54 +59,10 @@ def compute_tier_medians(master: pd.DataFrame) -> dict[str, float]:
     donors = donors[donors["actual_contribution_usd"].notna()]
     donors["ida_gdp_ratio"] = donors["actual_contribution_usd"] / donors["gdp_usd"]
 
-    # Global median (used as ultimate fallback and for scaling reference)
     global_median = float(donors["ida_gdp_ratio"].median())
     logger.info("Global IDA/GDP median (all donors): %.6f", global_median)
 
-    # Median GDP per capita per tier across ALL countries (not just donors),
-    # used to scale benchmarks for tiers with no donors.
-    gdp_pc = (
-        master[master["gdp_per_capita_usd"].notna()]
-        .groupby("income_group")["gdp_per_capita_usd"]
-        .median()
-    )
-
-    tier_medians: dict[str, float] = {"_global": global_median}
-    donor_set: dict[str, list] = {"_global": donors["iso3"].tolist()}
-
-    # Donor-based medians for tiers that have enough donors
-    for group, group_df in donors.groupby("income_group"):
-        n = len(group_df)
-        if n >= MIN_DONORS_PER_TIER:
-            median = float(group_df["ida_gdp_ratio"].median())
-            tier_medians[group] = median
-            logger.info("IDA/GDP median for %s: %.6f (%d donors)", group, median, n)
-        donor_set[group] = group_df["iso3"].tolist()
-
-    # For every income group in the universe, fill any missing tier median
-    # using GDP-per-capita scaling from the HIC benchmark.
-    hic_median = tier_medians.get("HIC", global_median)
-    hic_gdp_pc = gdp_pc.get("HIC")
-
-    for group in master["income_group"].dropna().unique():
-        if group in tier_medians:
-            continue  # already set from donor data
-        tier_gdp_pc = gdp_pc.get(group)
-        if hic_gdp_pc and tier_gdp_pc and hic_gdp_pc > 0:
-            scale = tier_gdp_pc / hic_gdp_pc
-            tier_medians[group] = hic_median * scale
-            logger.info(
-                "IDA/GDP median for %s: %.6f (scaled from HIC; GDP/cap ratio=%.3f)",
-                group, tier_medians[group], scale,
-            )
-        else:
-            tier_medians[group] = global_median
-            logger.warning(
-                "IDA/GDP median for %s: using global median fallback (no GDP/cap data)",
-                group,
-            )
-
-    return tier_medians, donor_set
+    return global_median, donors["iso3"].tolist()
 
 
 # ---------------------------------------------------------------------------
@@ -161,12 +108,12 @@ def score_capacity(master: pd.DataFrame | None = None, fiscal_modifier: bool = T
     if master is None:
         master = pd.read_csv(MASTER_PATH)
 
-    tier_medians, donor_set = compute_tier_medians(master)
+    benchmark_ratio, donor_list = compute_global_median(master)
 
     # Save run metadata
     metadata = {
-        "tier_medians": {k: v for k, v in tier_medians.items()},
-        "donor_sets": donor_set,
+        "benchmark_ida_gdp_ratio": benchmark_ratio,
+        "donor_set": donor_list,
     }
     with open(RUN_METADATA_PATH, "w") as f:
         json.dump(metadata, f, indent=2)
@@ -176,7 +123,6 @@ def score_capacity(master: pd.DataFrame | None = None, fiscal_modifier: bool = T
     results = []
     for _, row in master.iterrows():
         iso3 = row["iso3"]
-        income_group = row.get("income_group")
         gdp_usd = row.get("gdp_usd")
 
         # Target contribution
@@ -186,8 +132,6 @@ def score_capacity(master: pd.DataFrame | None = None, fiscal_modifier: bool = T
             fiscal_mod = None
             adjusted_target_usd = None
         else:
-            # Pick tier median; fall back to global if tier not in table
-            benchmark_ratio = tier_medians.get(income_group, tier_medians["_global"])
             target_usd = float(gdp_usd) * benchmark_ratio
 
             fiscal_mod = (
@@ -215,14 +159,12 @@ def score_capacity(master: pd.DataFrame | None = None, fiscal_modifier: bool = T
             gap_usd = None
             giving_rate = None
 
-        tier_median_used = tier_medians.get(income_group, tier_medians["_global"])
-
         results.append({
             "iso3": iso3,
             "country_name": row.get("country_name"),
-            "income_group": income_group,
+            "income_group": row.get("income_group"),
             "gdp_usd": gdp_usd,
-            "tier_median_ida_gdp_ratio": tier_median_used,
+            "benchmark_ida_gdp_ratio": benchmark_ratio,
             "target_usd": target_usd,
             "fiscal_modifier": fiscal_mod,
             "adjusted_target_usd": adjusted_target_usd,

@@ -208,6 +208,40 @@ def chart3_capacity_vs_giving_rate(dri: pd.DataFrame) -> None:
 
 
 # ---------------------------------------------------------------------------
+# Chart 5: All countries by gap (full ranked list)
+# ---------------------------------------------------------------------------
+
+def chart5_all_countries_gap(dri: pd.DataFrame) -> None:
+    """Horizontal bar chart — all countries ranked by gap_usd."""
+    valid = dri[dri["gap_usd"].notna()].sort_values("gap_usd", ascending=True).copy()
+
+    colors = ["#E53935" if g < 0 else _income_color(ig)
+              for g, ig in zip(valid["gap_usd"], valid["income_group"])]
+
+    fig, ax = plt.subplots(figsize=(12, max(8, len(valid) * 0.22)))
+    ax.barh(valid["country_name"], valid["gap_usd"], color=colors, edgecolor="none", height=0.8)
+    ax.xaxis.set_major_formatter(mticker.FuncFormatter(_billions))
+    ax.set_xlabel("Contribution Gap (Target − Actual)", fontsize=11)
+    ax.set_title("Donor Readiness Index — All Countries by IDA Contribution Gap", fontsize=13, pad=12)
+    ax.axvline(0, color="black", linewidth=0.8, linestyle="--")
+    ax.tick_params(axis="y", labelsize=7)
+
+    from matplotlib.patches import Patch
+    handles = [
+        Patch(facecolor=color, label=label)
+        for label, color in INCOME_COLORS.items()
+        if label in valid["income_group"].values
+    ] + [Patch(facecolor="#E53935", label="Over-contributor")]
+    ax.legend(handles=handles, title="Income Group", loc="lower right", fontsize=8)
+
+    plt.tight_layout()
+    path = CHARTS / "chart5_all_countries_gap.png"
+    fig.savefig(path, dpi=DPI, bbox_inches="tight")
+    plt.close(fig)
+    logger.info("Chart 5 saved to %s", path)
+
+
+# ---------------------------------------------------------------------------
 # Chart 4: Alignment vs. gap scatter
 # ---------------------------------------------------------------------------
 
@@ -274,5 +308,6 @@ def generate_report(
     chart2_giving_rate(dri)
     chart3_capacity_vs_giving_rate(dri)
     chart4_alignment_vs_gap(dri)
+    chart5_all_countries_gap(dri)
     logger.info("All charts generated in %s", CHARTS)
     return dri
