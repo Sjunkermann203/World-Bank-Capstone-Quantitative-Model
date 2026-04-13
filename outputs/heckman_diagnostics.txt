@@ -1,0 +1,35 @@
+======================================================================
+HECKMAN SELECTION MODEL — DIAGNOSTICS REPORT
+======================================================================
+
+1. IMR Significance Test
+----------------------------------------
+   IMR not found in Stage 2 parameters
+
+2. Exclusion Restriction Strength (LR Test)
+----------------------------------------
+   LR statistic: 343.2648  p-value: 0.0000
+   OK: Excluded variables are jointly significant
+
+3. Naive OLS vs. Heckman Coefficient Comparison
+----------------------------------------
+   Comparison failed: 'numpy.ndarray' object has no attribute 'get'
+
+4. Heteroskedasticity (Breusch-Pagan)
+----------------------------------------
+   BP p-value: 0.0000
+   Robust SEs applied (HC3)
+
+5. Variance Inflation Factors (Stage 2)
+----------------------------------------
+   VIF computation failed: "['imr'] not in index"
+
+6. Out-of-Sample Accuracy (IDA18–IDA20 holdout)
+----------------------------------------
+   Model                       MAE       RMSE
+   ---------------------------------------------
+   Heckman                  1.2573     1.5527
+   Naive OLS                1.8145     1.9969
+   (OOS sample: 94 donor observations)
+
+======================================================================

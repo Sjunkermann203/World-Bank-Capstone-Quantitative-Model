@@ -32,6 +32,7 @@ COUNTRY_MAP_PATH = ROOT / "data" / "country_map.csv"
 IDA_CONTRIBUTIONS_PATH = DATA_RAW / "ida_contributions.csv"
 IFC_PRESENCE_PATH = DATA_RAW / "ifc_presence.csv"
 IMF_WEO_PATH = DATA_RAW / "imf_weo.csv"
+HECKMAN_PANEL_PATH = DATA_RAW / "heckman_panel.csv"
 WDI_CACHE_PATH = DATA_CACHE / "wdi.csv"
 MASTER_PATH = DATA_PROCESSED / "master.csv"
 
@@ -42,6 +43,8 @@ WDI_INDICATORS = {
     # GC.BAL.CASH.GD.ZS (cash surplus/deficit) has no WB coverage; derive from revenue - expenditure
     "GC.REV.XGRT.GD.ZS": "govt_revenue_pct_gdp",
     "GC.XPN.TOTL.GD.ZS": "govt_expenditure_pct_gdp",
+    "NE.TRD.GNFS.ZS": "trade_openness",
+    "GOV_WGI_GE.EST": "gov_effectiveness",
 }
 
 # Expected IMF WEO columns
@@ -235,6 +238,42 @@ def load_ida_contributions(valid_iso3: set[str]) -> pd.DataFrame:
 
 
 # ---------------------------------------------------------------------------
+# Panel IDA21 actuals
+# ---------------------------------------------------------------------------
+
+def load_panel_ida21_actuals() -> pd.DataFrame:
+    """
+    Extract IDA21 actual contributions from heckman_panel.csv.
+
+    The panel records final replenishment totals, which are more complete and
+    accurate than the pledge figures in ida_contributions.csv. Returns a
+    DataFrame with columns: iso3, ida21_contribution_usd.
+
+    Returns an empty DataFrame if the panel file is not present.
+    """
+    if not HECKMAN_PANEL_PATH.exists():
+        logger.warning(
+            "heckman_panel.csv not found at %s — IDA21 actuals will rely solely on ida_contributions.csv",
+            HECKMAN_PANEL_PATH,
+        )
+        return pd.DataFrame(columns=["iso3", "ida21_contribution_usd"])
+
+    panel = pd.read_csv(HECKMAN_PANEL_PATH, comment="#")
+    panel.columns = panel.columns.str.strip().str.lower()
+    panel["country_iso3"] = panel["country_iso3"].str.strip().str.upper()
+
+    ida21 = panel[
+        (panel["replenishment_round"].str.upper() == "IDA21") &
+        (panel["donate_dummy"] == 1) &
+        panel["donation_usd"].notna()
+    ][["country_iso3", "donation_usd"]].copy()
+
+    ida21 = ida21.rename(columns={"country_iso3": "iso3", "donation_usd": "ida21_contribution_usd"})
+    logger.info("Panel IDA21 actuals loaded: %d donor countries", len(ida21))
+    return ida21
+
+
+# ---------------------------------------------------------------------------
 # Country identity resolution
 # ---------------------------------------------------------------------------
 
@@ -274,6 +313,24 @@ def build_master(refresh: bool = False) -> pd.DataFrame:
     wdi = fetch_wdi(iso3_list, refresh=refresh)
     imf = load_imf_weo()
     ida = load_ida_contributions(valid_iso3)
+    panel_ida21 = load_panel_ida21_actuals()
+
+    # Merge panel IDA21 actuals into ida, overriding ida_contributions.csv where available.
+    # Panel figures are final replenishment totals; CSV figures are earlier pledges.
+    if not panel_ida21.empty:
+        ida = ida.merge(panel_ida21, on="iso3", how="outer", suffixes=("_csv", "_panel"))
+        # Panel takes priority; fall back to CSV; then to null
+        panel_col = ida["ida21_contribution_usd_panel"] if "ida21_contribution_usd_panel" in ida.columns else pd.Series(dtype=float)
+        csv_col   = ida["ida21_contribution_usd_csv"]   if "ida21_contribution_usd_csv"   in ida.columns else pd.Series(dtype=float)
+        ida["ida21_contribution_usd"] = panel_col.combine_first(csv_col)
+        n_panel   = panel_col.notna().sum()
+        n_csv_only = (panel_col.isna() & csv_col.notna()).sum()
+        logger.info(
+            "IDA21 actuals: %d from panel (final totals), %d from CSV only (pledges)",
+            n_panel, n_csv_only,
+        )
+        drop_cols = [c for c in ida.columns if c.endswith("_panel") or c.endswith("_csv")]
+        ida = ida.drop(columns=drop_cols)
 
     # Join everything on ISO3
     master = canonical[["iso3", "country_name", "income_group", "is_current_donor"]].copy()
@@ -312,7 +369,8 @@ def build_master(refresh: bool = False) -> pd.DataFrame:
     output_cols = [
         "iso3", "country_name", "income_group", "is_current_donor",
         "gdp_usd", "gdp_per_capita_usd", "fiscal_balance_pct_gdp",
-        "govt_debt_pct_gdp", "ida20_contribution_usd", "ida21_contribution_usd",
+        "govt_debt_pct_gdp", "trade_openness", "gov_effectiveness",
+        "ida20_contribution_usd", "ida21_contribution_usd",
     ]
     output_cols = [c for c in output_cols if c in master.columns]
     master = master[output_cols]

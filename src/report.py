@@ -292,6 +292,38 @@ def chart4_alignment_vs_gap(dri: pd.DataFrame) -> None:
 # World map: interactive choropleth
 # ---------------------------------------------------------------------------
 
+def _load_country_interior_points() -> dict[str, tuple[float, float]]:
+    """
+    Return {iso3: (lat, lon)} using shapely representative_point() — guaranteed inside polygon.
+
+    Downloads Natural Earth 110m countries on first call and caches to data/cache/.
+    """
+    import json
+    import geopandas as gpd
+
+    cache_path = ROOT / "data" / "cache" / "country_interior_points.json"
+    if cache_path.exists():
+        with open(cache_path) as f:
+            raw = json.load(f)
+        return {k: tuple(v) for k, v in raw.items()}
+
+    logger.info("Downloading Natural Earth 110m countries for label placement (cached after this run)...")
+    url = "https://naciscdn.org/naturalearth/110m/cultural/ne_110m_admin_0_countries.zip"
+    world = gpd.read_file(url)
+
+    points: dict[str, tuple[float, float]] = {}
+    for _, row in world.iterrows():
+        iso3 = row.get("ADM0_A3") or row.get("ISO_A3")
+        if iso3 and iso3 != "-99":
+            pt = row.geometry.representative_point()
+            points[iso3] = (pt.y, pt.x)  # (lat, lon)
+
+    with open(cache_path, "w") as f:
+        json.dump(points, f)
+    logger.info("Interior points cached to %s (%d countries)", cache_path, len(points))
+    return points
+
+
 def generate_world_map(dri: pd.DataFrame) -> None:
     """Interactive choropleth HTML map — gap_usd shaded red (over-contributor) to green (large gap)."""
     import plotly.graph_objects as go
@@ -346,11 +378,16 @@ def generate_world_map(dri: pd.DataFrame) -> None:
         marker_line_width=0.5,
     ))
 
-    # Overlay country name labels at each country's centroid
+    # Build label positions using representative_point() — always inside polygon
+    interior = _load_country_interior_points()
+    label_rows = valid[valid["iso3"].isin(interior)].copy()
+    label_rows["_lat"] = label_rows["iso3"].map(lambda c: interior[c][0])
+    label_rows["_lon"] = label_rows["iso3"].map(lambda c: interior[c][1])
+
     fig.add_trace(go.Scattergeo(
-        locations=valid["iso3"],
-        locationmode="ISO-3",
-        text=valid["country_name"],
+        lat=label_rows["_lat"],
+        lon=label_rows["_lon"],
+        text=label_rows["country_name"],
         mode="text",
         textfont=dict(size=7, color="black"),
         hoverinfo="skip",
@@ -370,12 +407,10 @@ def generate_world_map(dri: pd.DataFrame) -> None:
         margin=dict(l=0, r=0, t=50, b=0),
     )
 
-    # Warn on unmatched ISO-3 codes (Plotly silently drops them)
-    import plotly.express as px
-    known_iso3 = set(px.data.gapminder()["iso_alpha"].dropna())
+    # Warn on unmatched ISO-3 codes
     for iso3 in valid["iso3"]:
-        if iso3 not in known_iso3:
-            logger.warning("ISO-3 code '%s' not found in Plotly Natural Earth geometry — will not appear on map", iso3)
+        if iso3 not in interior:
+            logger.warning("ISO-3 code '%s' not found in Natural Earth geometry — label omitted", iso3)
 
     path = CHARTS / "chart5_world_map.html"
     fig.write_html(str(path), include_plotlyjs=True)

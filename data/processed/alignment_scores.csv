@@ -88,6 +88,7 @@ BDI,Burundi,,0.0,0,0.0,unga_alignment_score
 BFA,Burkina Faso,,0.0,0,0.0,unga_alignment_score
 CAF,Central African Republic,,0.0,0,0.0,unga_alignment_score
 COD,"Congo, Dem. Rep.",,0.0,0,0.0,unga_alignment_score
+ERI,Eritrea,,0.0,0,0.0,unga_alignment_score
 ETH,Ethiopia,,0.0,100,50.0,unga_alignment_score
 GMB,"Gambia, The",,0.0,0,0.0,unga_alignment_score
 GNB,Guinea-Bissau,,0.0,0,0.0,unga_alignment_score
@@ -97,10 +98,12 @@ MLI,Mali,,0.0,0,0.0,unga_alignment_score
 MOZ,Mozambique,,0.0,0,0.0,unga_alignment_score
 MWI,Malawi,,0.0,0,0.0,unga_alignment_score
 NER,Niger,,0.0,0,0.0,unga_alignment_score
+PRK,"Korea, Dem. People's Rep.",,0.0,0,0.0,unga_alignment_score
 RWA,Rwanda,,0.0,0,0.0,unga_alignment_score
 SDN,Sudan,,0.0,0,0.0,unga_alignment_score
 SLE,Sierra Leone,,0.0,0,0.0,unga_alignment_score
 SOM,"Somalia, Fed. Rep.",,0.0,0,0.0,unga_alignment_score
+SSD,South Sudan,,0.0,0,0.0,unga_alignment_score
 SYR,Syrian Arab Republic,,0.0,0,0.0,unga_alignment_score
 TCD,Chad,,0.0,0,0.0,unga_alignment_score
 TGO,Togo,,0.0,0,0.0,unga_alignment_score

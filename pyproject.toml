@@ -5,12 +5,16 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
+    "geodatasets>=2026.1.0",
+    "geopandas>=1.0.1",
     "matplotlib>=3.7",
     "numpy>=1.24",
     "openpyxl>=3.1",
     "pandas>=2.0",
     "plotly>=6.7.0",
     "requests>=2.31",
+    "scikit-learn>=1.6.1",
     "seaborn>=0.12",
+    "statsmodels>=0.14.6",
     "wbdata>=1.0",
 ]

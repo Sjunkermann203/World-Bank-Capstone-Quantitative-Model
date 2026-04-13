@@ -11,7 +11,8 @@ Runs the full DRI pipeline in order:
 Usage
 -----
   python main.py                    # full pipeline
-  python main.py --refresh          # re-fetch WDI (bypass cache)
+  python main.py --refresh          # re-fetch WDI (bypass cache) and run full pipeline
+  python main.py --refresh-wdi      # re-fetch WDI only, then stop
   python main.py --top-n 20         # show top 20 countries in Chart 1
   python main.py --dry-run          # ingest only, print summary
 """
@@ -25,7 +26,6 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 from ingest import build_master
-from capacity import score_capacity
 from alignment import score_alignment
 from report import generate_report
 
@@ -49,6 +49,11 @@ def parse_args() -> argparse.Namespace:
         help="Re-fetch WDI data from the World Bank API, bypassing the local cache.",
     )
     parser.add_argument(
+        "--refresh-wdi",
+        action="store_true",
+        help="Re-fetch WDI data only, update the cache, then stop.",
+    )
+    parser.add_argument(
         "--top-n",
         type=int,
         default=30,
@@ -66,7 +71,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--no-fiscal-modifier",
         action="store_true",
-        help="Disable the fiscal balance modifier so all targets use the raw tier benchmark.",
+        help="Disable the fiscal balance modifier (rule-based scorer only; ignored by Heckman).",
+    )
+    parser.add_argument(
+        "--skip-heckman",
+        action="store_true",
+        help=(
+            "Fall back to the rule-based capacity scorer instead of the Heckman model. "
+            "Useful when data/raw/heckman_panel.csv is not present."
+        ),
     )
     return parser.parse_args()
 
@@ -91,6 +104,16 @@ def main():
     args = parse_args()
     logger = logging.getLogger("main")
 
+    # ── WDI-only refresh ─────────────────────────────────────────────────────
+    if args.refresh_wdi:
+        from ingest import fetch_wdi, load_country_map, resolve_countries
+        country_map = load_country_map()
+        iso3_list = resolve_countries(country_map)["iso3"].tolist()
+        logger.info("Refreshing WDI cache for %d countries...", len(iso3_list))
+        fetch_wdi(iso3_list, refresh=True)
+        logger.info("WDI cache updated.")
+        return
+
     # ── Stage 1: Ingest ──────────────────────────────────────────────────────
     logger.info("Stage 1/4 — Data ingestion (refresh=%s)", args.refresh)
     master = build_master(refresh=args.refresh)
@@ -102,7 +125,23 @@ def main():
         return
 
     # ── Stage 2: Capacity scoring ─────────────────────────────────────────────
-    logger.info("Stage 2/4 — Capacity scoring")
+    _panel_path = Path(__file__).parent / "data" / "raw" / "heckman_panel.csv"
+    _use_heckman = not args.skip_heckman and _panel_path.exists()
+
+    if _use_heckman:
+        logger.info("Stage 2/4 — Heckman capacity scoring")
+        from heckman import score_capacity
+    else:
+        if not args.skip_heckman:
+            logger.warning(
+                "heckman_panel.csv not found at %s — falling back to rule-based capacity scorer. "
+                "Pass --skip-heckman to suppress this warning.",
+                _panel_path,
+            )
+        else:
+            logger.info("Stage 2/4 — Rule-based capacity scoring (--skip-heckman)")
+        from capacity import score_capacity
+
     capacity = score_capacity(master, fiscal_modifier=not args.no_fiscal_modifier)
     logger.info(
         "Capacity scoring complete: %d countries scored, %d with valid gap",
