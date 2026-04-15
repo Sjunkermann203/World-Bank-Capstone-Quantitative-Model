@@ -5,8 +5,7 @@ Donor Readiness Index — Pipeline Runner
 Runs the full DRI pipeline in order:
   1. ingest   — fetch/load source data → data/processed/master.csv
   2. capacity — score capacity targets, gaps, giving rates → data/processed/capacity_scores.csv
-  3. align    — score strategic alignment → data/processed/alignment_scores.csv
-  4. report   — merge, rank, and produce charts → outputs/
+  3. report   — rank and produce charts → outputs/
 
 Usage
 -----
@@ -26,7 +25,6 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 from ingest import build_master
-from alignment import score_alignment
 from report import generate_report
 
 
@@ -129,7 +127,7 @@ def main():
     _use_heckman = not args.skip_heckman and _panel_path.exists()
 
     if _use_heckman:
-        logger.info("Stage 2/4 — Heckman capacity scoring")
+        logger.info("Stage 2/3 — Heckman capacity scoring")
         from heckman import score_capacity
     else:
         if not args.skip_heckman:
@@ -139,7 +137,7 @@ def main():
                 _panel_path,
             )
         else:
-            logger.info("Stage 2/4 — Rule-based capacity scoring (--skip-heckman)")
+            logger.info("Stage 2/3 — Rule-based capacity scoring (--skip-heckman)")
         from capacity import score_capacity
 
     capacity = score_capacity(master, fiscal_modifier=not args.no_fiscal_modifier)
@@ -149,18 +147,9 @@ def main():
         capacity["gap_usd"].notna().sum(),
     )
 
-    # ── Stage 3: Alignment scoring ────────────────────────────────────────────
-    logger.info("Stage 3/4 — Strategic alignment scoring")
-    alignment = score_alignment(master)
-    logger.info(
-        "Alignment scoring complete: %d countries scored, %d with composite score",
-        len(alignment),
-        alignment["alignment_score"].notna().sum(),
-    )
-
-    # ── Stage 4: Report ───────────────────────────────────────────────────────
-    logger.info("Stage 4/4 — Generating report and charts (top_n=%d)", args.top_n)
-    dri = generate_report(capacity, alignment, top_n=args.top_n)
+    # ── Stage 3: Report ───────────────────────────────────────────────────────
+    logger.info("Stage 3/3 — Generating report and charts (top_n=%d)", args.top_n)
+    dri = generate_report(capacity, top_n=args.top_n)
     logger.info("Pipeline complete. %d countries in final DRI output.", len(dri))
 
     print("\n" + "=" * 60)
@@ -168,14 +157,12 @@ def main():
     print("=" * 60)
     print(f"  Countries scored:  {len(dri)}")
     print(f"  With valid gap:    {dri['gap_usd'].notna().sum()}")
-    print(f"  With alignment:    {dri['alignment_score'].notna().sum()}")
     print()
     print("  Output files:")
     print("    outputs/dri_output.csv")
     print("    outputs/charts/chart1_gap_ranking.png")
     print("    outputs/charts/chart2_giving_rate.png")
     print("    outputs/charts/chart3_capacity_vs_giving_rate.png")
-    print("    outputs/charts/chart4_alignment_vs_gap.png")
     print("    outputs/charts/chart5_all_countries_gap.png")
     print("    outputs/charts/chart5_world_map.html")
     print("=" * 60 + "\n")

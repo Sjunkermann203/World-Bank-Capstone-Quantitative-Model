@@ -1,12 +1,11 @@
 """
 Reporting and chart generation for the Donor Readiness Index.
 
-Merges capacity and alignment scores, ranks countries by gap, and produces:
+Ranks countries by capacity gap and produces:
   - outputs/dri_output.csv            — ranked per-country summary
   - outputs/charts/chart1_gap_ranking.png
   - outputs/charts/chart2_giving_rate.png
   - outputs/charts/chart3_capacity_vs_giving_rate.png
-  - outputs/charts/chart4_alignment_vs_gap.png
 """
 
 from __future__ import annotations
@@ -28,7 +27,6 @@ OUTPUTS = ROOT / "outputs"
 CHARTS = OUTPUTS / "charts"
 
 CAPACITY_SCORES_PATH = DATA_PROCESSED / "capacity_scores.csv"
-ALIGNMENT_SCORES_PATH = DATA_PROCESSED / "alignment_scores.csv"
 DRI_OUTPUT_PATH = OUTPUTS / "dri_output.csv"
 
 DPI = 150
@@ -50,27 +48,18 @@ def _ensure_output_dirs():
 # Merge and rank
 # ---------------------------------------------------------------------------
 
-def build_dri_output(
-    capacity: pd.DataFrame | None = None,
-    alignment: pd.DataFrame | None = None,
-) -> pd.DataFrame:
+def build_dri_output(capacity: pd.DataFrame | None = None) -> pd.DataFrame:
     """
-    Merge capacity and alignment scores; sort by gap_usd descending.
+    Sort capacity scores by gap_usd descending.
     Writes outputs/dri_output.csv and returns the DataFrame.
     """
     _ensure_output_dirs()
 
     if capacity is None:
         capacity = pd.read_csv(CAPACITY_SCORES_PATH)
-    if alignment is None:
-        alignment = pd.read_csv(ALIGNMENT_SCORES_PATH)
-
-    # Merge on iso3; keep all capacity rows
-    align_cols = [c for c in alignment.columns if c not in {"country_name"}]
-    merged = capacity.merge(alignment[align_cols], on="iso3", how="left")
 
     # Sort by gap descending (largest gap = most underperforming)
-    merged = merged.sort_values("gap_usd", ascending=False, na_position="last")
+    merged = capacity.sort_values("gap_usd", ascending=False, na_position="last")
     merged = merged.reset_index(drop=True)
 
     merged.to_csv(DRI_OUTPUT_PATH, index=False)
@@ -242,53 +231,6 @@ def chart5_all_countries_gap(dri: pd.DataFrame) -> None:
 
 
 # ---------------------------------------------------------------------------
-# Chart 4: Alignment vs. gap scatter
-# ---------------------------------------------------------------------------
-
-def chart4_alignment_vs_gap(dri: pd.DataFrame) -> None:
-    """Scatter: alignment_score (x) vs. gap_usd (y), point size ∝ GDP."""
-    valid = dri[dri["alignment_score"].notna() & dri["gap_usd"].notna()].copy()
-    if valid.empty:
-        logger.warning("Chart 4: no countries with both alignment score and gap — skipping")
-        return
-
-    # Normalize GDP to point size (30–300)
-    gdp = valid["gdp_usd"].fillna(valid["gdp_usd"].median())
-    sizes = 30 + (gdp / gdp.max()) * 270
-
-    colors = [_income_color(g) for g in valid["income_group"]]
-    fig, ax = plt.subplots(figsize=(11, 7))
-    ax.scatter(valid["alignment_score"], valid["gap_usd"], s=sizes, c=colors, alpha=0.70, zorder=3)
-
-    for _, row in valid.iterrows():
-        ax.annotate(
-            row["iso3"],
-            (row["alignment_score"], row["gap_usd"]),
-            fontsize=7, alpha=0.8, xytext=(3, 3), textcoords="offset points",
-        )
-
-    ax.yaxis.set_major_formatter(mticker.FuncFormatter(_billions))
-    ax.set_xlabel("Strategic Alignment Score (0–100)", fontsize=11)
-    ax.set_ylabel("Contribution Gap (Target − Actual, USD)", fontsize=11)
-    ax.set_title("Strategic Alignment vs. Contribution Gap", fontsize=13, pad=12)
-    ax.axhline(0, color="black", linewidth=0.8, linestyle="--", alpha=0.5)
-
-    handles = [
-        plt.Line2D([0], [0], marker="o", color="w", markerfacecolor=color, markersize=8, label=label)
-        for label, color in INCOME_COLORS.items()
-        if label in valid["income_group"].values
-    ]
-    if handles:
-        ax.legend(handles=handles, title="Income Group", loc="upper right", fontsize=8)
-
-    plt.tight_layout()
-    path = CHARTS / "chart4_alignment_vs_gap.png"
-    fig.savefig(path, dpi=DPI, bbox_inches="tight")
-    plt.close(fig)
-    logger.info("Chart 4 saved to %s", path)
-
-
-# ---------------------------------------------------------------------------
 # World map: interactive choropleth
 # ---------------------------------------------------------------------------
 
@@ -325,7 +267,13 @@ def _load_country_interior_points() -> dict[str, tuple[float, float]]:
 
 
 def generate_world_map(dri: pd.DataFrame) -> None:
-    """Interactive choropleth HTML map — gap_usd shaded red (over-contributor) to green (large gap)."""
+    """Interactive choropleth HTML map — gap_usd shaded red (over-contributor) to green (large gap).
+
+    Uses a symlog colour scale (sign(x) * log1p(|x| / 1e6)) so that the gradient
+    is spread across orders of magnitude rather than compressed by a handful of
+    large-gap outliers.  Country labels are shown only for the top 30 countries
+    by absolute gap to avoid overlap on small nations.
+    """
     import plotly.graph_objects as go
 
     valid = dri[dri["gap_usd"].notna()].copy()
@@ -340,47 +288,57 @@ def generate_world_map(dri: pd.DataFrame) -> None:
     def _fmt_pct(v):
         return "N/A" if pd.isna(v) else f"{v:.1%}"
 
-    def _fmt_score(v):
-        return "N/A" if pd.isna(v) else f"{v:.1f}"
-
     valid["_gap_fmt"] = valid["gap_usd"].apply(_fmt_usd)
     valid["_rate_fmt"] = valid["giving_rate"].apply(_fmt_pct)
-    valid["_align_fmt"] = valid["alignment_score"].apply(_fmt_score)
     valid["_target_fmt"] = valid["adjusted_target_usd"].apply(_fmt_usd)
 
-    pos_gaps = valid.loc[valid["gap_usd"] > 0, "gap_usd"]
-    zmax = float(pos_gaps.quantile(0.95)) if len(pos_gaps) else 1e9
-    zmin = float(valid["gap_usd"].min())
+    # Symlog transform: spread gradient across orders of magnitude.
+    # Units: millions of USD so that log1p(1) ≈ $1M and log1p(1000) ≈ $1B.
+    def _symlog(x):
+        return np.sign(x) * np.log1p(np.abs(x) / 1e6)
+
+    valid["_z"] = valid["gap_usd"].apply(_symlog)
+    zmax = float(valid["_z"].quantile(0.98))
+    zmin = float(valid["_z"].quantile(0.02))
+
+    # Colorbar tick positions (symlog scale) with human-readable dollar labels
+    tick_dollars = [-1e9, -1e8, -1e7, -1e6, 0, 1e6, 1e7, 1e8, 1e9]
+    tick_vals = [_symlog(v) for v in tick_dollars]
+    tick_text = ["-$1B", "-$100M", "-$10M", "-$1M", "$0", "$1M", "$10M", "$100M", "$1B"]
 
     fig = go.Figure(go.Choropleth(
         locations=valid["iso3"],
-        z=valid["gap_usd"],
+        z=valid["_z"],
         locationmode="ISO-3",
         colorscale="RdYlGn",
         zmin=zmin,
         zmax=zmax,
         zmid=0,
-        customdata=valid[["country_name", "_gap_fmt", "_rate_fmt", "_align_fmt", "_target_fmt"]].values,
+        customdata=valid[["country_name", "_gap_fmt", "_rate_fmt", "_target_fmt"]].values,
         hovertemplate=(
             "<b>%{customdata[0]}</b><br>"
             "Gap: %{customdata[1]}<br>"
             "Giving Rate: %{customdata[2]}<br>"
-            "Alignment Score: %{customdata[3]}<br>"
-            "Capacity Target: %{customdata[4]}"
+            "Capacity Target: %{customdata[3]}"
             "<extra></extra>"
         ),
         colorbar=dict(
             title="Contribution Gap",
-            tickformat="$,.0f",
+            tickvals=tick_vals,
+            ticktext=tick_text,
             len=0.75,
         ),
         marker_line_color="white",
         marker_line_width=0.5,
     ))
 
-    # Build label positions using representative_point() — always inside polygon
+    # Labels: only the top 30 countries by absolute gap to avoid overlap on small nations
     interior = _load_country_interior_points()
-    label_rows = valid[valid["iso3"].isin(interior)].copy()
+    top_iso3 = (
+        valid.nlargest(30, "_z")["iso3"].tolist()
+        + valid.nsmallest(5, "_z")["iso3"].tolist()
+    )
+    label_rows = valid[valid["iso3"].isin(interior) & valid["iso3"].isin(top_iso3)].copy()
     label_rows["_lat"] = label_rows["iso3"].map(lambda c: interior[c][0])
     label_rows["_lon"] = label_rows["iso3"].map(lambda c: interior[c][1])
 
@@ -389,7 +347,7 @@ def generate_world_map(dri: pd.DataFrame) -> None:
         lon=label_rows["_lon"],
         text=label_rows["country_name"],
         mode="text",
-        textfont=dict(size=7, color="black"),
+        textfont=dict(size=8, color="black"),
         hoverinfo="skip",
         showlegend=False,
     ))
@@ -423,20 +381,18 @@ def generate_world_map(dri: pd.DataFrame) -> None:
 
 def generate_report(
     capacity: pd.DataFrame | None = None,
-    alignment: pd.DataFrame | None = None,
     top_n: int = 30,
 ) -> pd.DataFrame:
     """
-    Build the DRI output CSV and generate all four charts.
+    Build the DRI output CSV and generate all charts.
 
-    Returns the merged DRI DataFrame.
+    Returns the DRI DataFrame.
     """
     _ensure_output_dirs()
-    dri = build_dri_output(capacity, alignment)
+    dri = build_dri_output(capacity)
     chart1_gap_ranking(dri, top_n=top_n)
     chart2_giving_rate(dri)
     chart3_capacity_vs_giving_rate(dri)
-    chart4_alignment_vs_gap(dri)
     chart5_all_countries_gap(dri)
     generate_world_map(dri)
     logger.info("All charts generated in %s", CHARTS)

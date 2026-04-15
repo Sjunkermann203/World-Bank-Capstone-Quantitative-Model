@@ -232,6 +232,18 @@ def fit_stage1(train: pd.DataFrame) -> tuple:
 # Stage 2: OLS outcome model
 # ---------------------------------------------------------------------------
 
+class _RobustResultWrapper:
+    """Wraps a statsmodels HC3 result to ensure params/pvalues are pandas Series."""
+
+    def __init__(self, result, param_names):
+        self._result = result
+        self.params = pd.Series(np.asarray(result.params), index=param_names)
+        self.pvalues = pd.Series(np.asarray(result.pvalues), index=param_names)
+
+    def __getattr__(self, name):
+        return getattr(self._result, name)
+
+
 def _add_round_dummies(df: pd.DataFrame) -> pd.DataFrame:
     """Add replenishment_round dummies, dropping the most common as reference."""
     dummies = pd.get_dummies(df["replenishment_round"], prefix="round", drop_first=True)
@@ -259,7 +271,8 @@ def fit_stage2(train: pd.DataFrame, imr_train: pd.Series) -> tuple:
     use_robust = bp_pval < 0.05
 
     if use_robust:
-        result = ols.get_robustcov_results(cov_type="HC3")
+        hc3 = ols.get_robustcov_results(cov_type="HC3")
+        result = _RobustResultWrapper(hc3, X.columns)
         logger.info("Breusch-Pagan p=%.4f — using robust standard errors (HC3)", bp_pval)
     else:
         result = ols
@@ -453,9 +466,9 @@ def run_diagnostics(
     # ── IMR significance ────────────────────────────────────────────────────
     lines.append("1. IMR Significance Test")
     lines.append("-" * 40)
-    if "imr" in stage2_result.params:
-        imr_pval = stage2_result.pvalues.get("imr", np.nan)
-        imr_coef = stage2_result.params.get("imr", np.nan)
+    if "imr" in stage2_result.params.index:
+        imr_pval = stage2_result.pvalues["imr"]
+        imr_coef = stage2_result.params["imr"]
         lines.append(f"   IMR coefficient: {imr_coef:.4f}  p-value: {imr_pval:.4f}")
         if imr_pval > 0.10:
             msg = f"   WARNING: IMR p-value={imr_pval:.4f} > 0.10 — selection bias may be negligible"
@@ -531,6 +544,7 @@ def run_diagnostics(
     lines.append("-" * 40)
     try:
         donors = train[train["donate_dummy"] == 1].copy()
+        donors["imr"] = _compute_imr_for_all(stage1_result, donors)
         donors = _add_round_dummies(donors)
         vif_vars = STAGE2_VARS + ["imr"] + round_cols
         X_vif = sm.add_constant(donors[vif_vars].fillna(0).astype(float))
