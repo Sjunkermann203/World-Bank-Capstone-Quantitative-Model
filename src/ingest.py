@@ -30,7 +30,6 @@ DATA_PROCESSED = ROOT / "data" / "processed"
 
 COUNTRY_MAP_PATH = ROOT / "data" / "country_map.csv"
 IDA_CONTRIBUTIONS_PATH = DATA_RAW / "ida_contributions.csv"
-IFC_PRESENCE_PATH = DATA_RAW / "ifc_presence.csv"
 IMF_WEO_PATH = DATA_RAW / "imf_weo.csv"
 HECKMAN_PANEL_PATH = DATA_RAW / "heckman_panel.csv"
 WDI_CACHE_PATH = DATA_CACHE / "wdi.csv"
@@ -45,6 +44,17 @@ WDI_INDICATORS = {
     "GC.XPN.TOTL.GD.ZS": "govt_expenditure_pct_gdp",
     "NE.TRD.GNFS.ZS": "trade_openness",
     "GOV_WGI_GE.EST": "gov_effectiveness",
+    # PPP-adjusted GDP (constant 2017 international dollars) and GNI per capita PPP
+    "NY.GDP.MKTP.PP.KD": "gdp_ppp",
+    "NY.GNP.PCAP.PP.CD": "gni_per_capita_ppp",
+}
+
+# Map World Bank income group codes to peer group labels
+INCOME_GROUP_TO_PEER = {
+    "HIC": "High Income",
+    "UMC": "Upper-Middle Income",
+    "LMC": "Lower-Middle Income",
+    "LIC": "Low Income",
 }
 
 # Expected IMF WEO columns
@@ -77,7 +87,7 @@ _WDI_RETRIES = 2       # attempts per batch before skipping
 _WDI_DATE_RANGE = "2018:2024"  # fetch recent years; we take the most recent non-null value
 
 
-def _fetch_wdi_batch(indicator_code: str, field_name: str, batch: list[str]) -> dict[str, float | None]:
+def _fetch_wdi_batch(indicator_code: str, batch: list[str]) -> dict[str, float | None]:
     """Fetch one indicator for a batch of countries. Returns {iso3: value}."""
     codes = ";".join(batch)
     url = f"{_WB_API_BASE}/countries/{codes}/indicators/{indicator_code}"
@@ -127,7 +137,7 @@ def _fetch_wdi_via_requests(indicators: dict[str, str], iso3_list: list[str]) ->
             logger.info(
                 "WDI fetch: %s — batch %d/%d (%s)", indicator_code, i, n_batches, batch
             )
-            values = _fetch_wdi_batch(indicator_code, field_name, batch)
+            values = _fetch_wdi_batch(indicator_code, batch)
             for iso3, value in values.items():
                 if iso3 in rows:
                     rows[iso3][field_name] = value
@@ -154,7 +164,17 @@ def fetch_wdi(iso3_list: list[str], refresh: bool = False) -> pd.DataFrame:
 
     if WDI_CACHE_PATH.exists() and not refresh:
         logger.info("Loading WDI data from cache: %s", WDI_CACHE_PATH)
-        return pd.read_csv(WDI_CACHE_PATH)
+        cached = pd.read_csv(WDI_CACHE_PATH)
+        missing_ppp = [c for c in ("gdp_ppp", "gni_per_capita_ppp") if c not in cached.columns]
+        if missing_ppp:
+            logger.warning(
+                "WDI cache is missing PPP columns %s — run with --refresh to fetch them. "
+                "ppp_data_available will be False for all countries until then.",
+                missing_ppp,
+            )
+            for col in missing_ppp:
+                cached[col] = None
+        return cached
 
     logger.info("Fetching WDI indicators from World Bank API (batch request for %d countries)...", len(iso3_list))
     try:
@@ -344,6 +364,17 @@ def build_master(refresh: bool = False) -> pd.DataFrame:
             master["govt_revenue_pct_gdp"] - master["govt_expenditure_pct_gdp"]
         )
 
+    # Peer group: map income_group codes to World Bank income-tier labels
+    master["peer_group"] = master["income_group"].map(INCOME_GROUP_TO_PEER).fillna("Unclassified")
+    unclassified = master["peer_group"].eq("Unclassified").sum()
+    if unclassified > 0:
+        logger.warning(
+            "%d countries have no income-group classification — peer_group set to 'Unclassified'", unclassified
+        )
+
+    # PPP data availability flag
+    master["ppp_data_available"] = master["gdp_ppp"].notna()
+
     # Warn for any WDI indicator null
     for col in WDI_INDICATORS.values():
         if col in master.columns:
@@ -368,8 +399,9 @@ def build_master(refresh: bool = False) -> pd.DataFrame:
 
     output_cols = [
         "iso3", "country_name", "income_group", "is_current_donor",
-        "gdp_usd", "gdp_per_capita_usd", "fiscal_balance_pct_gdp",
-        "govt_debt_pct_gdp", "trade_openness", "gov_effectiveness",
+        "peer_group", "ppp_data_available",
+        "gdp_usd", "gdp_per_capita_usd", "gdp_ppp", "gni_per_capita_ppp",
+        "fiscal_balance_pct_gdp", "govt_debt_pct_gdp", "trade_openness", "gov_effectiveness",
         "ida20_contribution_usd", "ida21_contribution_usd",
     ]
     output_cols = [c for c in output_cols if c in master.columns]

@@ -97,7 +97,6 @@ def print_dry_run_summary(master):
 
 
 def main():
-    print('main')
     configure_logging()
     args = parse_args()
     logger = logging.getLogger("main")
@@ -128,7 +127,10 @@ def main():
 
     if _use_heckman:
         logger.info("Stage 2/3 — Heckman capacity scoring")
+        if args.no_fiscal_modifier:
+            logger.warning("--no-fiscal-modifier is ignored by the Heckman scorer.")
         from heckman import score_capacity
+        capacity = score_capacity(master)
     else:
         if not args.skip_heckman:
             logger.warning(
@@ -139,12 +141,12 @@ def main():
         else:
             logger.info("Stage 2/3 — Rule-based capacity scoring (--skip-heckman)")
         from capacity import score_capacity
-
-    capacity = score_capacity(master, fiscal_modifier=not args.no_fiscal_modifier)
+        capacity = score_capacity(master, fiscal_modifier=not args.no_fiscal_modifier)
+    gap_col = "gap_usd_signed" if "gap_usd_signed" in capacity.columns else "gap_usd"
     logger.info(
         "Capacity scoring complete: %d countries scored, %d with valid gap",
         len(capacity),
-        capacity["gap_usd"].notna().sum(),
+        capacity[gap_col].notna().sum(),
     )
 
     # ── Stage 3: Report ───────────────────────────────────────────────────────
@@ -155,8 +157,9 @@ def main():
     print("\n" + "=" * 60)
     print("  Donor Readiness Index — Pipeline Complete")
     print("=" * 60)
+    dri_gap_col = "gap_usd_signed" if "gap_usd_signed" in dri.columns else "gap_usd"
     print(f"  Countries scored:  {len(dri)}")
-    print(f"  With valid gap:    {dri['gap_usd'].notna().sum()}")
+    print(f"  With valid gap:    {dri[dri_gap_col].notna().sum()}")
     print()
     print("  Output files:")
     print("    outputs/dri_output.csv")

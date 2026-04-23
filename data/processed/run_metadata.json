@@ -1,5 +1,9 @@
 {
-  "benchmark_ida_gdp_ratio": 0.0004258169379295129,
+  "benchmark_methodology": "GDP-weighted peer-group median IDA/GDP ratio",
+  "global_benchmark_ida_gdp_ratio": 0.00016220623688211876,
+  "peer_benchmarks": {
+    "High Income": 0.00016220623688211876
+  },
   "donor_set": [
     "AUS",
     "AUT",
