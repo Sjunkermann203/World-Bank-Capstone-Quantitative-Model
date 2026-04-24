@@ -43,6 +43,7 @@ CONTRIBUTIONS_PATH = DATA_RAW / "IDA_Contributions.xlsx - IDAReplenishments (1-2
 COUNTRY_MAP_PATH = ROOT / "data" / "country_map.csv"
 WDI_HIST_CACHE = DATA_CACHE / "wdi_historical.csv"
 PANEL_OUT = DATA_RAW / "heckman_panel.csv"
+UNGA_DYADS_PATH = DATA_RAW / "IdealPointDyads1946-2025.csv"
 
 # ---------------------------------------------------------------------------
 # IDA round metadata
@@ -147,7 +148,7 @@ DAC_JOIN_YEAR: dict[str, int] = {
     "NZL": 1973, "FIN": 1975, "IRL": 1985, "PRT": 1991, "ESP": 1991,
     "LUX": 1992, "GRC": 1999, "KOR": 2010, "ISL": 2013, "CZE": 2013,
     "SVK": 2013, "HUN": 2016, "POL": 2013, "SVN": 2013, "LVA": 2022,
-    "LTU": 2022,
+    "LTU": 2022, "ROU":2025,
 }
 
 # 1 if country is an EU member or close US/Western ally (broad definition)
@@ -178,20 +179,60 @@ SOVEREIGN_RATING: dict[str, str] = {
     "TTO": "BBB-", "URY": "BBB",
 }
 
-# Approximate UN voting alignment with the US (0–1 scale, higher = more aligned)
-# Based on recent UNGA voting record patterns — used as a static proxy
-UN_VOTING_ALIGN: dict[str, float] = {
-    "USA": 1.00,
-    "ISR": 0.85, "GBR": 0.62, "FRA": 0.55, "DEU": 0.54, "CAN": 0.60,
-    "AUS": 0.65, "NZL": 0.62, "JPN": 0.60, "KOR": 0.58, "NOR": 0.50,
-    "DNK": 0.53, "SWE": 0.50, "FIN": 0.51, "NLD": 0.53, "BEL": 0.52,
-    "ITA": 0.54, "ESP": 0.52, "PRT": 0.52, "GRC": 0.48, "IRL": 0.50,
-    "AUT": 0.50, "CHE": 0.47, "LUX": 0.52, "POL": 0.55, "CZE": 0.54,
-    "SVK": 0.52, "HUN": 0.50, "HRV": 0.52, "SVN": 0.52, "EST": 0.55,
-    "LVA": 0.55, "LTU": 0.55, "BGR": 0.51, "ROU": 0.53, "MLT": 0.48,
-    "CYP": 0.42, "SGP": 0.42, "KWT": 0.40, "SAU": 0.38, "CHN": 0.25,
-    "ARE": 0.38, "QAT": 0.38, "BHR": 0.40,
-}
+# UN voting alignment with the US — derived from Voeten UNGA dyadic ideal-point
+# distances (AbsIdealDiff). Rescaled per-year to a 0–1 scale where 1 = perfect
+# alignment with the US and 0 = maximum observed distance in that year.
+_UN_ALIGN_CACHE: dict[tuple[str, int], float] | None = None
+
+
+def _load_un_voting_align() -> dict[tuple[str, int], float]:
+    """Build a (iso3, year) -> alignment-with-US lookup from the Voeten dyads file."""
+    global _UN_ALIGN_CACHE
+    if _UN_ALIGN_CACHE is not None:
+        return _UN_ALIGN_CACHE
+    if not UNGA_DYADS_PATH.exists():
+        logger.warning("UNGA dyads file not found at %s — un_voting_align will fall back to 0.45", UNGA_DYADS_PATH)
+        _UN_ALIGN_CACHE = {}
+        return _UN_ALIGN_CACHE
+
+    df = pd.read_csv(UNGA_DYADS_PATH, usecols=["iso3c1", "iso3c2", "year", "AbsIdealDiff"])
+    us = df[df["iso3c1"] == "USA"].dropna(subset=["AbsIdealDiff"]).copy()
+    # Year-wise max distance for rescaling to [0, 1]
+    year_max = us.groupby("year")["AbsIdealDiff"].transform("max")
+    us["align"] = 1.0 - (us["AbsIdealDiff"] / year_max.replace(0, np.nan))
+    us["align"] = us["align"].clip(0.0, 1.0).fillna(0.5)
+
+    lookup: dict[tuple[str, int], float] = {
+        (str(row.iso3c2), int(row.year)): float(row.align)
+        for row in us.itertuples(index=False)
+    }
+    # USA vs itself (not present as a dyad row) — perfect alignment
+    for yr in us["year"].unique():
+        lookup[("USA", int(yr))] = 1.0
+
+    logger.info("Loaded UN voting alignment: %d country-year observations from %s",
+                len(lookup), UNGA_DYADS_PATH.name)
+    _UN_ALIGN_CACHE = lookup
+    return lookup
+
+
+def lookup_un_align(iso3: str, year: int, window: int = 3) -> float:
+    """Return US-alignment for a country-year, falling back to nearest year, then country mean, then 0.45."""
+    lookup = _load_un_voting_align()
+    if not lookup:
+        return 0.45
+    if (iso3, year) in lookup:
+        return lookup[(iso3, year)]
+    # Nearest year within ±window
+    candidates = [(abs(y - year), lookup[(iso3, y)])
+                  for (c, y) in lookup if c == iso3 and abs(y - year) <= window]
+    if candidates:
+        return min(candidates, key=lambda x: x[0])[1]
+    # Country mean (any year)
+    country_vals = [v for (c, _y), v in lookup.items() if c == iso3]
+    if country_vals:
+        return float(np.mean(country_vals))
+    return 0.45
 
 # Approximate IDA vote share (%) — based on recent IDA replenishment data
 # Used as a lag proxy for all rounds (simplified)
@@ -577,7 +618,7 @@ def build_panel(refresh: bool = False) -> pd.DataFrame:
             "donation_usd": float(obs["donation_usd"]),
             "log_gdp_per_capita": round(log_gdp_pc, 6) if not np.isnan(log_gdp_pc) else np.nan,
             "dac_member": dac_member,
-            "un_voting_align": UN_VOTING_ALIGN.get(iso3, 0.45),
+            "un_voting_align": round(lookup_un_align(iso3, year), 6),
             "trade_openness": round(trade, 4) if trade is not None else np.nan,
             "gov_effectiveness": round(gov_eff, 6),
             "peer_donor": peer_map[(iso3, rnd)],

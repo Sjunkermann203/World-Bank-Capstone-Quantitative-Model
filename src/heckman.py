@@ -14,7 +14,8 @@ Stage 2 — OLS with IMR correction (outcome equation):
     Models log-donation amount conditional on donating.
     Variables: log_gdp_level, fiscal_balance_pct_gdp, ida_vote_share_lag,
                trade_exposure_ida, log_donation_lag,
-               sovereign_credit_rating, imr, round dummies
+               imr, round dummies
+               # sovereign_credit_rating dropped
 
 Exclusion restrictions (Stage 1 only):
     un_voting_align, peer_donor, dac_member
@@ -61,7 +62,8 @@ PANEL_REQUIRED_COLUMNS = {
     "log_gdp_per_capita", "dac_member", "un_voting_align", "trade_openness",
     "gov_effectiveness", "peer_donor", "log_gdp_level", "fiscal_balance_pct_gdp",
     "ida_vote_share_lag", "trade_exposure_ida", "log_donation_lag",
-    "us_eu_ally", "sovereign_credit_rating",
+    "us_eu_ally",
+    # "sovereign_credit_rating",  # dropped: static hand-curated proxy, collinear with GDP/governance
 }
 
 STAGE1_VARS = [
@@ -72,12 +74,13 @@ STAGE1_VARS = [
 STAGE2_VARS = [
     "log_gdp_level", "fiscal_balance_pct_gdp", "ida_vote_share_lag",
     "trade_exposure_ida", "log_donation_lag",
-    "sovereign_credit_rating",
+    # "sovereign_credit_rating",  # dropped
 ]
 
 STAGE2_CONTINUOUS = [
     "log_gdp_level", "fiscal_balance_pct_gdp", "ida_vote_share_lag",
-    "trade_exposure_ida", "log_donation_lag", "sovereign_credit_rating",
+    "trade_exposure_ida", "log_donation_lag",
+    # "sovereign_credit_rating",  # dropped
 ]
 
 CREDIT_RATING_MAP = {
@@ -124,13 +127,13 @@ def load_panel() -> pd.DataFrame:
 # Preprocessing
 # ---------------------------------------------------------------------------
 
-def _encode_credit_ratings(panel: pd.DataFrame) -> pd.DataFrame:
-    """Convert sovereign_credit_rating strings to ordinal integers."""
-    if panel["sovereign_credit_rating"].dtype == object:
-        panel["sovereign_credit_rating"] = panel["sovereign_credit_rating"].map(
-            CREDIT_RATING_MAP
-        )
-    return panel
+# def _encode_credit_ratings(panel: pd.DataFrame) -> pd.DataFrame:
+#     """Convert sovereign_credit_rating strings to ordinal integers."""
+#     if panel["sovereign_credit_rating"].dtype == object:
+#         panel["sovereign_credit_rating"] = panel["sovereign_credit_rating"].map(
+#             CREDIT_RATING_MAP
+#         )
+#     return panel
 
 
 def preprocess_panel(panel: pd.DataFrame) -> pd.DataFrame:
@@ -145,8 +148,8 @@ def preprocess_panel(panel: pd.DataFrame) -> pd.DataFrame:
             np.nan,
         )
 
-    # Credit rating encoding
-    panel = _encode_credit_ratings(panel)
+    # Credit rating encoding (dropped — see commented block above)
+    # panel = _encode_credit_ratings(panel)
 
     # log_donation_lag: set to 0 for first-time donors / non-donors with no prior record
     panel["log_donation_lag"] = panel["log_donation_lag"].fillna(0.0)
@@ -822,14 +825,15 @@ def score_capacity(master: pd.DataFrame | None = None) -> pd.DataFrame:
 
     # Pull in per-country metadata from the same lookup tables used in build_panel.py
     from build_panel import (
-        DAC_JOIN_YEAR, US_EU_ALLY, UN_VOTING_ALIGN,
-        IDA_VOTE_SHARE, TRADE_EXPOSURE_IDA, SOVEREIGN_RATING,
+        DAC_JOIN_YEAR, US_EU_ALLY, lookup_un_align,
+        IDA_VOTE_SHARE, TRADE_EXPOSURE_IDA,
+        # SOVEREIGN_RATING,  # dropped
     )
 
     iso = pred_input["iso3"]
     pred_input["dac_member"] = iso.map(lambda x: 1 if DAC_JOIN_YEAR.get(x, 9999) <= 2024 else 0)
     pred_input["us_eu_ally"] = iso.map(lambda x: US_EU_ALLY.get(x, 0))
-    pred_input["un_voting_align"] = iso.map(lambda x: UN_VOTING_ALIGN.get(x, 0.45))
+    pred_input["un_voting_align"] = iso.map(lambda x: lookup_un_align(x, 2024))
     pred_input["ida_vote_share_lag"] = iso.map(lambda x: IDA_VOTE_SHARE.get(x, 0.05))
     pred_input["trade_exposure_ida"] = iso.map(lambda x: TRADE_EXPOSURE_IDA.get(x, 0.15))
     # At IDA21, virtually all established peers are contributing — strong peer signal
@@ -853,11 +857,11 @@ def score_capacity(master: pd.DataFrame | None = None) -> pd.DataFrame:
     )
 
     # sovereign_credit_rating: encode from string ratings via CREDIT_RATING_MAP
-    pred_input["sovereign_credit_rating"] = (
-        iso.map(lambda x: SOVEREIGN_RATING.get(x, "BBB"))
-           .map(CREDIT_RATING_MAP)
-           .fillna(12)  # BBB default
-    )
+    # pred_input["sovereign_credit_rating"] = (
+    #     iso.map(lambda x: SOVEREIGN_RATING.get(x, "BBB"))
+    #        .map(CREDIT_RATING_MAP)
+    #        .fillna(12)  # BBB default
+    # )
 
     # Round column: IDA21 (no training round dummies will fire)
     pred_input["replenishment_round"] = "IDA21"
